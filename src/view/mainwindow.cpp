@@ -54,7 +54,7 @@ void MainWindow::setDefaultSettings() {
   ui->z->setText("0");
   ui->scale->setText("1");
 
-  ui->view_window->clear_window();
+  ui->view_window->setupOpenGLState();
 }
 
 void MainWindow::clearData() {

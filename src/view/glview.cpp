@@ -20,7 +20,7 @@ void GlView::setupOpenGLState() {
 }
 
 void GlView::paintGL() {
-    if (dataInitialized) {
+    if (data_initialized) {
         setupProjection();
         drawObjects();
     }

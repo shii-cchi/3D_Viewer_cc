@@ -10,6 +10,9 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
  public:
   explicit GlView(QWidget *parent = nullptr);
+  
+  void sendData(obj_data file_data);
+  void setupOpenGLState();
 
  private:
   void initializeGL() override;
@@ -19,8 +22,6 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   obj_data data;
   bool data_initialized;
 
-  void sendData(obj_data file_data);
-  void setupOpenGLState();
   void setupProjection();
   void drawObjects();
 };
