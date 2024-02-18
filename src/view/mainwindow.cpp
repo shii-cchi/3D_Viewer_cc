@@ -169,3 +169,27 @@ void MainWindow::on_line_type_currentIndexChanged(int index) {
   emit lineTypeChanged(index);
 }
 
+
+void MainWindow::on_projection_type_currentIndexChanged(int index)
+{
+
+}
+
+
+void MainWindow::on_width_edge_currentIndexChanged(int index)
+{
+
+}
+
+
+void MainWindow::on_size_vertices_currentIndexChanged(int index)
+{
+
+}
+
+
+void MainWindow::on_vertices_type_currentIndexChanged(int index)
+{
+
+}
+
