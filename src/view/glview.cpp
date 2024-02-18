@@ -1,6 +1,6 @@
 #include "glview.h"
 
-GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false) {}
+GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), linePattern(0xFFFF) {}
 
 void GlView::sendData(obj_data file_data) {
   data = file_data;
@@ -15,14 +15,17 @@ void GlView::initializeGL() {
 void GlView::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
 
 void GlView::setupOpenGLState() {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 }
 
 void GlView::paintGL() {
     if (data_initialized) {
         setupProjection();
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, linePattern);
         drawObjects();
+        glDisable(GL_LINE_STIPPLE);
     }
 }
 
@@ -47,4 +50,17 @@ void GlView::drawObjects() {
       }
       glEnd();
     }
+}
+
+void GlView::updateLineType(int index) {
+    switch (index) {
+        case 0:
+            linePattern = 0xFFFF;
+            break;
+        case 1:
+            linePattern = 0xF0F0;
+            break;
+    }
+
+    update();
 }

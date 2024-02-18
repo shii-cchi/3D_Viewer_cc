@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   data.all_vertices = nullptr;
   data.all_surfaces = nullptr;
+
+  connect(this, SIGNAL(lineTypeChanged(int)), ui->view_window, SLOT(updateLineType(int)));
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -49,9 +51,12 @@ void MainWindow::setDefaultSettings() {
   ui->file_name->setText("");
   ui->count_vertices->setText("");
   ui->count_surfaces->setText("");
-  ui->x->setText("0");
-  ui->y->setText("0");
-  ui->z->setText("0");
+  ui->x_move->setText("0");
+  ui->y_move->setText("0");
+  ui->z_move->setText("0");
+  ui->x_rotate->setText("0");
+  ui->y_rotate->setText("0");
+  ui->z_rotate->setText("0");
   ui->scale->setText("1");
 
   ui->view_window->setupOpenGLState();
@@ -91,9 +96,9 @@ void MainWindow::on_pushButton_move_clicked() {
 
   if (checkFile()) {
     bool x_err, y_err, z_err;
-    double shift_x = ui->x->text().toDouble(&x_err);
-    double shift_y = ui->y->text().toDouble(&y_err);
-    double shift_z = ui->z->text().toDouble(&z_err);
+    double shift_x = ui->x_move->text().toDouble(&x_err);
+    double shift_y = ui->y_move->text().toDouble(&y_err);
+    double shift_z = ui->z_move->text().toDouble(&z_err);
 
     if (x_err && y_err && z_err) {
       move_coord(shift_x, shift_y, shift_z, &data);
@@ -109,9 +114,9 @@ void MainWindow::on_pushButton_rotate_clicked() {
 
   if (checkFile()) {
     bool x_err, y_err, z_err;
-    double degree_x = ui->x->text().toDouble(&x_err);
-    double degree_y = ui->y->text().toDouble(&y_err);
-    double degree_z = ui->z->text().toDouble(&z_err);
+    double degree_x = ui->x_rotate->text().toDouble(&x_err);
+    double degree_y = ui->y_rotate->text().toDouble(&y_err);
+    double degree_z = ui->z_rotate->text().toDouble(&z_err);
 
     if (x_err && y_err && z_err && isAngles(degree_x, degree_y, degree_z)) {
       rotate(degree_x, degree_y, degree_z, &data);
@@ -159,3 +164,8 @@ bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
 
   return status;
 }
+
+void MainWindow::on_line_type_currentIndexChanged(int index) {
+  emit lineTypeChanged(index);
+}
+

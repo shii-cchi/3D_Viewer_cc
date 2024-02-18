@@ -14,6 +14,9 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   void sendData(obj_data file_data);
   void setupOpenGLState();
 
+ public slots:
+  void updateLineType(int index);
+
  private:
   void initializeGL() override;
   void resizeGL(int w, int h) override;
@@ -21,6 +24,7 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
 
   obj_data data;
   bool data_initialized;
+  GLushort linePattern;
 
   void setupProjection();
   void drawObjects();

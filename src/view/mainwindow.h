@@ -25,6 +25,9 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
+ signals:
+  void lineTypeChanged(int index);
+
  private slots:
   void on_pushButton_file_clicked();
 
@@ -34,7 +37,9 @@ class MainWindow : public QMainWindow {
 
   void on_pushButton_scale_clicked();
 
- private:
+  void on_line_type_currentIndexChanged(int index);
+
+  private:
   Ui::MainWindow *ui;
   obj_data data;
 
