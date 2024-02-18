@@ -10,7 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
   data.all_vertices = nullptr;
   data.all_surfaces = nullptr;
 
+  connect(this, SIGNAL(projectionTypeChanged(int)), ui->view_window, SLOT(updateProjectionType(int)));
+  connect(this, SIGNAL(widthEdgeChanged(int)), ui->view_window, SLOT(updateWidthEdge(int)));
   connect(this, SIGNAL(lineTypeChanged(int)), ui->view_window, SLOT(updateLineType(int)));
+  connect(this, SIGNAL(sizeVerticesChanged(int)), ui->view_window, SLOT(updateSizeVertices(int)));
+  connect(this, SIGNAL(verticesTypeChanged(int)), ui->view_window, SLOT(updateVerticesType(int)));
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -165,31 +169,23 @@ bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
   return status;
 }
 
+void MainWindow::on_projection_type_currentIndexChanged(int index) {
+  emit projectionTypeChanged(index);
+}
+
+void MainWindow::on_width_edge_currentIndexChanged(int index) {
+  emit widthEdgeChanged(index);
+}
+
 void MainWindow::on_line_type_currentIndexChanged(int index) {
   emit lineTypeChanged(index);
 }
 
-
-void MainWindow::on_projection_type_currentIndexChanged(int index)
-{
-
+void MainWindow::on_size_vertices_currentIndexChanged(int index) {
+  emit sizeVerticesChanged(index);
 }
 
-
-void MainWindow::on_width_edge_currentIndexChanged(int index)
-{
-
-}
-
-
-void MainWindow::on_size_vertices_currentIndexChanged(int index)
-{
-
-}
-
-
-void MainWindow::on_vertices_type_currentIndexChanged(int index)
-{
-
+void MainWindow::on_vertices_type_currentIndexChanged(int index) {
+  emit verticesTypeChanged(index);
 }
 

@@ -15,7 +15,11 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   void setupOpenGLState();
 
  public slots:
+  void updateProjectionType(int index);
+  void updateWidthEdge(int index);
   void updateLineType(int index);
+  void updateSizeVertices(int index);
+  void updateVerticesType(int index);
 
  private:
   void initializeGL() override;
@@ -24,7 +28,10 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
 
   obj_data data;
   bool data_initialized;
-  GLushort linePattern;
+  GLushort line_pattern;
+  GLenum projection_type;
+  float width_edge;
+  float size_vertices;
 
   void setupProjection();
   void drawObjects();

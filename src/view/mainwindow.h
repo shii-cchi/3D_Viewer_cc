@@ -26,7 +26,11 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  signals:
+  void projectionTypeChanged(int index);
+  void widthEdgeChanged(int index);
   void lineTypeChanged(int index);
+  void sizeVerticesChanged(int index);
+  void verticesTypeChanged(int index);
 
  private slots:
   void on_pushButton_file_clicked();
@@ -37,7 +41,11 @@ class MainWindow : public QMainWindow {
 
   void on_pushButton_scale_clicked();
 
+  void on_projection_type_currentIndexChanged(int index);
+  void on_width_edge_currentIndexChanged(int index);
   void on_line_type_currentIndexChanged(int index);
+  void on_size_vertices_currentIndexChanged(int index);
+  void on_vertices_type_currentIndexChanged(int index);
 
   private:
   Ui::MainWindow *ui;
