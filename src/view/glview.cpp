@@ -1,6 +1,6 @@
 #include "glview.h"
 
-GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(GL_PROJECTION_CENTRAL), width_edge(1), size_vertices(1) {}
+GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(GL_PROJECTION_CENTRAL), width_edge(1), size_vertices(1), vertex_type(Default) {}
 
 void GlView::sendData(obj_data file_data) {
   data = file_data;
@@ -43,7 +43,6 @@ void GlView::setupProjection() {
 
 void GlView::drawObjects() {
     glLineWidth(width_edge);
-    glPointSize(size_vertices);
 
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, line_pattern);
@@ -58,8 +57,29 @@ void GlView::drawObjects() {
       }
       glEnd();
     }
-    
+
     glDisable(GL_LINE_STIPPLE);
+
+    if (vertex_type != Default) {
+      if (vertex_type == Circular) {
+        glEnable(GL_POINT_SMOOTH);
+      }
+
+      glPointSize(size_vertices);
+      for (int i = 0; i < data.count_surfaces; ++i) {
+        for (int j = 0; j < data.all_surfaces[i].amount_of_vertices; ++j) {
+          glBegin(GL_POINTS);
+          glVertex3d(data.all_vertices[data.all_surfaces[i].indices[j]].x,
+                   data.all_vertices[data.all_surfaces[i].indices[j]].y,
+                   data.all_vertices[data.all_surfaces[i].indices[j]].z);
+          }
+        glEnd();
+      }
+
+      if (vertex_type == Circular) {
+        glDisable(GL_POINT_SMOOTH);
+      }
+    }
 }
 
 void GlView::updateProjectionType(int index) {
@@ -139,5 +159,17 @@ void GlView::updateSizeVertices(int index) {
 }
 
 void GlView::updateVerticesType(int index) {
+    switch (index) {
+        case 0:
+            vertex_type = Default;
+            break;
+        case 1:
+            vertex_type = Circular;
+            break;
+        case 2:
+            vertex_type = Square;
+            break;
+    }
 
+    update();
 }

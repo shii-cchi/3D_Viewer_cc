@@ -32,6 +32,12 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   GLenum projection_type;
   float width_edge;
   float size_vertices;
+  enum vertex_shape {
+        Default,
+        Circular,
+        Square
+    };
+    vertex_shape vertex_type;
 
   void setupProjection();
   void drawObjects();
