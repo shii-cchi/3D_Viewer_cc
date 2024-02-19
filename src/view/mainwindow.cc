@@ -67,8 +67,8 @@ void MainWindow::on_pushButton_file_clicked() {
     // ui->count_vertices->setText(QString::number(data.count_vertices));
     // ui->count_surfaces->setText(QString::number(data.count_surfaces));
 
-    auto vertices = controller.GetVetrixCoordinate();
-    auto surfaces = controller.GetSurfaceNum();
+    vertices = controller.GetVetrixCoordinate();
+    surfaces = controller.GetSurfaceNum();
 
     std::cout << vertices[surfaces[0]._surface_numbers[0]]._x << std::endl;
     std::cout << vertices[surfaces[0]._surface_numbers[0]]._y << std::endl;
@@ -136,57 +136,72 @@ QString MainWindow::getFileName(QString file_name) {
   return file_name;
 }
 
-//void MainWindow::on_pushButton_move_clicked() {
-//  ui->error_xyz_scale->setText("");
+void MainWindow::on_pushButton_move_clicked() {
+ ui->error_xyz_scale->setText("");
 
-//  if (checkFile()) {
-//    bool x_err, y_err, z_err;
-//    double shift_x = ui->x_move->text().toDouble(&x_err);
-//    double shift_y = ui->y_move->text().toDouble(&y_err);
-//    double shift_z = ui->z_move->text().toDouble(&z_err);
+ //if (checkFile()) {
+   bool x_err, y_err, z_err;
+   double shift_x = ui->x_move->text().toDouble(&x_err);
+   double shift_y = ui->y_move->text().toDouble(&y_err);
+   double shift_z = ui->z_move->text().toDouble(&z_err);
 
-//    if (x_err && y_err && z_err) {
-//      move_coord(shift_x, shift_y, shift_z, &data);
-//    } else {
-//      ui->error_xyz_scale->setText("Неверно введенные данные");
-//    }
-//    ui->view_window->update();
-//  }
-//}
+   if (x_err && y_err && z_err) {
+    controller.TranslateForwardX(shift_x);
+    controller.TranslateForwardY(shift_y);
+    controller.TranslateForwardZ(shift_z);
 
-//void MainWindow::on_pushButton_rotate_clicked() {
-//  ui->error_xyz_scale->setText("");
+    vertices = controller.GetVetrixCoordinate();
+    surfaces = controller.GetSurfaceNum();
 
-//  if (checkFile()) {
-//    bool x_err, y_err, z_err;
-//    double degree_x = ui->x_rotate->text().toDouble(&x_err);
-//    double degree_y = ui->y_rotate->text().toDouble(&y_err);
-//    double degree_z = ui->z_rotate->text().toDouble(&z_err);
+   } else {
+     ui->error_xyz_scale->setText("Неверно введенные данные");
+   }
+   ui->view_window->update();
+ //}
+}
 
-//    if (x_err && y_err && z_err && isAngles(degree_x, degree_y, degree_z)) {
-//      rotate(degree_x, degree_y, degree_z, &data);
-//    } else {
-//      ui->error_xyz_scale->setText("Неверно введенные данные");
-//    }
-//    ui->view_window->update();
-//  }
-//}
+void MainWindow::on_pushButton_rotate_clicked() {
+ ui->error_xyz_scale->setText("");
 
-//void MainWindow::on_pushButton_scale_clicked() {
-//  ui->error_xyz_scale->setText("");
+ //if (checkFile()) {
+   bool x_err, y_err, z_err;
+   double degree_x = ui->x_rotate->text().toDouble(&x_err);
+   double degree_y = ui->y_rotate->text().toDouble(&y_err);
+   double degree_z = ui->z_rotate->text().toDouble(&z_err);
 
-//  if (checkFile()) {
-//    bool ratio_err;
-//    double ratio = ui->scale->text().toDouble(&ratio_err);
+   if (x_err && y_err && z_err && isAngles(degree_x, degree_y, degree_z)) {
+    controller.RotateForwardX(degree_x);
+    controller.RotateForwardY(degree_y);
+    controller.RotateForwardZ(degree_z);
 
-//    if (ratio_err && ratio > 0) {
-//      scale(ratio, &data);
-//    } else {
-//      ui->error_xyz_scale->setText("Неверно введенные данные");
-//    }
-//    ui->view_window->update();
-//  }
-//}
+    vertices = controller.GetVetrixCoordinate();
+    surfaces = controller.GetSurfaceNum();
+   } else {
+     ui->error_xyz_scale->setText("Неверно введенные данные");
+   }
+   ui->view_window->update();
+ //}
+}
+
+void MainWindow::on_pushButton_scale_clicked() {
+ ui->error_xyz_scale->setText("");
+
+ //if (checkFile()) {
+   bool ratio_err;
+   double ratio = ui->scale->text().toDouble(&ratio_err);
+
+   if (ratio_err && ratio > 0) {
+    controller.ScaleForward(ratio);
+
+    vertices = controller.GetVetrixCoordinate();
+    surfaces = controller.GetSurfaceNum();
+  
+   } else {
+     ui->error_xyz_scale->setText("Неверно введенные данные");
+   }
+   ui->view_window->update();
+ //}
+}
 
 //bool MainWindow::checkFile() {
 //  bool status = false;

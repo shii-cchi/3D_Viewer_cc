@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QSettings>
 
+#include "../viewer_model/parser.h"
 #include "../viewer_controller/viewer_controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -45,6 +46,8 @@ class MainWindow : public QMainWindow {
 
   private:
   Ui::MainWindow *ui;
+  std::vector<s21::VertixCoordinates> vertices;
+  std::vector<s21::SurfaceNumbers> surfaces;
 
   void setDefaultSettings();
  // void clearData();
