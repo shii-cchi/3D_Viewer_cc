@@ -1,6 +1,6 @@
 #include "glview.h"
 
-GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(GL_PROJECTION_CENTRAL), width_edge(1), size_vertices(1), vertex_type(Default) {}
+GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertex_type(Default) {}
 
 void GlView::sendData(obj_data file_data) {
   data = file_data;
@@ -22,7 +22,9 @@ void GlView::setupOpenGLState() {
 void GlView::paintGL() {
     if (data_initialized) {
         setupProjection();
+        glEnableClientState(GL_VERTEX_ARRAY);
         drawObjects();
+        glDisableClientState(GL_VERTEX_ARRAY);
     }
 }
 
@@ -30,9 +32,9 @@ void GlView::setupProjection() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    if (projection_type == GL_PROJECTION_PARALLEL) {
+    if (projection_type == Parallel) {
       glOrtho(-1, 1, -1, 1, 1, 99999);
-    } else if (projection_type == GL_PROJECTION_CENTRAL) {
+    } else if (projection_type == Central) {
       glFrustum(-0.5, 0.5, -0.5, 0.5, 1, 99999);
       glTranslatef(0, 0, -2.8);
     }
@@ -85,10 +87,10 @@ void GlView::drawObjects() {
 void GlView::updateProjectionType(int index) {
     switch (index) {
         case 0:
-            projection_type = GL_PROJECTION_CENTRAL;
+            projection_type = Central;
             break;
         case 1:
-            projection_type = GL_PROJECTION_PARALLEL;
+            projection_type = Parallel;
             break;
     }
 
@@ -107,13 +109,10 @@ void GlView::updateWidthEdge(int index) {
             width_edge = 3;
             break;
         case 3:
-            width_edge = 0.8;
+            width_edge = 4;
             break;
         case 4:
-            width_edge = 0.5;
-            break;
-        case 5:
-            width_edge = 0.2;
+            width_edge = 5;
             break;
     }
 
@@ -145,13 +144,10 @@ void GlView::updateSizeVertices(int index) {
             size_vertices = 3;
             break;
         case 3:
-            size_vertices = 0.8;
+            size_vertices = 4;
             break;
         case 4:
-            size_vertices = 0.5;
-            break;
-        case 5:
-            size_vertices = 0.2;
+            size_vertices = 5;
             break;
     }
 

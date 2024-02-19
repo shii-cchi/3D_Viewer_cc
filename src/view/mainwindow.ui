@@ -678,12 +678,12 @@
       </item>
       <item>
        <property name="text">
-        <string>0.5</string>
+        <string>4</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>0.3</string>
+        <string>5</string>
        </property>
       </item>
      </widget>
@@ -719,12 +719,12 @@
       </item>
       <item>
        <property name="text">
-        <string>0.5</string>
+        <string>4</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>0.3</string>
+        <string>5</string>
        </property>
       </item>
      </widget>

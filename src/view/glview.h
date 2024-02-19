@@ -29,15 +29,20 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   obj_data data;
   bool data_initialized;
   GLushort line_pattern;
-  GLenum projection_type;
+  enum projection_types {
+      Central,
+      Parallel,
+  };
+  projection_types projection_type;
+
   float width_edge;
   float size_vertices;
-  enum vertex_shape {
+  enum vertex_types {
         Default,
         Circular,
         Square
     };
-    vertex_shape vertex_type;
+    vertex_types vertex_type;
 
   void setupProjection();
   void drawObjects();
