@@ -60,5 +60,7 @@ class MainWindow : public QMainWindow {
   bool isAngles(double degree_x, double degree_y, double degree_z);
 
   QSettings settings;
+  void loadSettings();
+  void saveSettings();
 };
 #endif  // SRC_VIEW_MAINWINDOW_H

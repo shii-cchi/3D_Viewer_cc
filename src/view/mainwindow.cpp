@@ -24,26 +24,10 @@ MainWindow::~MainWindow() {
   delete ui; 
 }
 
-  GLushort line_pattern;
-  enum projection_types {
-      Central,
-      Parallel,
-  };
-  projection_types projection_type;
-
-  float width_edge;
-  float size_vertices;
-  enum vertices_types {
-        Default,
-        Circular,
-        Square
-    };
-  vertices_types vertices_type;
-
 void MainWindow::saveSettings() {
     QSettings settings("s21", "3D_Viewer");
 
-    settings.setValue("line_pattern", ui->line_pattern->currentIndex());
+    settings.setValue("line_pattern", ui->line_type->currentIndex());
     settings.setValue("projection_type", ui->projection_type->currentIndex());
     settings.setValue("width_edge", ui->width_edge->currentIndex());
     settings.setValue("size_vertices", ui->size_vertices->currentIndex());
@@ -54,7 +38,7 @@ void MainWindow::loadSettings() {
     QSettings settings("s21", "3D_Viewer");
 
     int line_pattern_index = settings.value("line_pattern", 0).toInt();
-    ui->line_pattern->setCurrentIndex(line_pattern_index);
+    ui->line_type->setCurrentIndex(line_pattern_index);
 
     int projection_type_index = settings.value("projection_type", 0).toInt();
     ui->projection_type->setCurrentIndex(projection_type_index);
