@@ -6,8 +6,6 @@
 #include <QMainWindow>
 #include <QSettings>
 
-#include <iostream>
-
 #include "../viewer_controller/viewer_controller.h"
 
 QT_BEGIN_NAMESPACE
