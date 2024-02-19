@@ -50,8 +50,8 @@ void GlView::drawObjects() {
     glLineStipple(1, line_pattern);
 
     for (int i = 0; i < data.count_surfaces; ++i) {
+      glBegin(GL_LINE_LOOP);
       for (int j = 0; j < data.all_surfaces[i].amount_of_vertices; ++j) {
-        glBegin(GL_LINE_LOOP);
         glColor3d(1.0, 0.0, 0.0);
         glVertex3d(data.all_vertices[data.all_surfaces[i].indices[j]].x,
                    data.all_vertices[data.all_surfaces[i].indices[j]].y,
@@ -69,8 +69,8 @@ void GlView::drawObjects() {
 
       glPointSize(size_vertices);
       for (int i = 0; i < data.count_surfaces; ++i) {
+        glBegin(GL_POINTS);
         for (int j = 0; j < data.all_surfaces[i].amount_of_vertices; ++j) {
-          glBegin(GL_POINTS);
           glVertex3d(data.all_vertices[data.all_surfaces[i].indices[j]].x,
                    data.all_vertices[data.all_surfaces[i].indices[j]].y,
                    data.all_vertices[data.all_surfaces[i].indices[j]].z);
