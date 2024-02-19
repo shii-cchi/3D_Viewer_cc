@@ -60,24 +60,29 @@ void MainWindow::on_pushButton_file_clicked() {
       this, tr("Open File"), "/home/", tr("Files (*.obj)"));
 
   if (file_name != "") {
-    char *file_name_char = file_name.toLocal8Bit().data();
+   // clearData();
 
-    clearData();
-    get_file_data(file_name_char, &data);
+    controller.SetData(file_name.toStdString());
 
     ui->file_name->setText(getFileName(file_name));
 
-    ui->count_vertices->setText(QString::number(data.count_vertices));
-    ui->count_surfaces->setText(QString::number(data.count_surfaces));
+    // ui->count_vertices->setText(QString::number(data.count_vertices));
+    // ui->count_surfaces->setText(QString::number(data.count_surfaces));
 
-    if (data.count_vertices != 0 && data.count_surfaces != 0) {
-      ui->view_window->sendData(data);
-      ui->view_window->update();
-    } else if (data.count_vertices == 0 && data.count_surfaces == 0) {
-      ui->error_file->setText("Файл пустой");
-    } else {
-      ui->error_file->setText("Недостаточно данных");
-    }
+    auto vertices = controller.GetVetrixCoordinate();
+    auto surfaces = controller.GetSurfaceNum();
+
+    ui->view_window->sendData(vertices, surfaces);
+    ui->view_window->update();
+
+    // if (data.count_vertices != 0 && data.count_surfaces != 0) {
+    //   ui->view_window->sendData(data);
+    //   ui->view_window->update();
+    // } else if (data.count_vertices == 0 && data.count_surfaces == 0) {
+    //   ui->error_file->setText("Файл пустой");
+    // } else {
+    //   ui->error_file->setText("Недостаточно данных");
+    // }
   } else {
     ui->error_file->setText("Откройте файл");
   }
@@ -100,23 +105,23 @@ void MainWindow::setDefaultSettings() {
   ui->view_window->setupOpenGLState();
 }
 
-void MainWindow::clearData() {
-  if (data.all_vertices != nullptr) {
-    free(data.all_vertices);
-    data.all_vertices = nullptr;
-  }
+// void MainWindow::clearData() {
+//   if (data.all_vertices != nullptr) {
+//     free(data.all_vertices);
+//     data.all_vertices = nullptr;
+//   }
 
-  if (data.all_surfaces != nullptr) {
-    for (int i = 0; i < data.count_surfaces; i++) {
-      free(data.all_surfaces[i].indices);
-    }
-    free(data.all_surfaces);
-    data.all_surfaces = nullptr;
-  }
+//   if (data.all_surfaces != nullptr) {
+//     for (int i = 0; i < data.count_surfaces; i++) {
+//       free(data.all_surfaces[i].indices);
+//     }
+//     free(data.all_surfaces);
+//     data.all_surfaces = nullptr;
+//   }
 
-  data.count_vertices = 0;
-  data.count_surfaces = 0;
-}
+//   data.count_vertices = 0;
+//   data.count_surfaces = 0;
+// }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
   clearData();

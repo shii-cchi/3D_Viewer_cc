@@ -4,14 +4,12 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 
-#include "../core/structs.h"
-
 class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
  public:
   explicit GlView(QWidget *parent = nullptr);
   
-  void sendData(obj_data file_data);
+  void sendData(std::vector<VertixCoordinates> all_vertices, std::vector<SurfaceNumbers> all_surfaces);
   void setupOpenGLState();
 
  public slots:
@@ -26,8 +24,10 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   void resizeGL(int w, int h) override;
   void paintGL() override;
 
-  obj_data data;
+  std::vector<VertixCoordinates> all_vertices;
+  std::vector<SurfaceNumbers> all_surfaces;
   bool data_initialized;
+
   GLushort line_pattern;
   enum projection_types {
       Central,

@@ -6,12 +6,7 @@
 #include <QMainWindow>
 #include <QSettings>
 
-extern "C" {
-#include "../core/parser.h"
-#include "../core/transform.h"
-}
-
-#include "../core/structs.h"
+#include "../viewer_contoller/viewer_contoller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -50,14 +45,16 @@ class MainWindow : public QMainWindow {
 
   private:
   Ui::MainWindow *ui;
-  obj_data data;
 
   void setDefaultSettings();
-  void clearData();
+ // void clearData();
   void closeEvent(QCloseEvent *event) override;
   QString getFileName(QString file_name);
   bool checkFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
+
+
+  s21::ViewerController controller;
 
   QSettings settings;
   void loadSettings();

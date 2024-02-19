@@ -2,8 +2,9 @@
 
 GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertices_type(Default) {}
 
-void GlView::sendData(obj_data file_data) {
-  data = file_data;
+void GlView::sendData(std::vector<VertixCoordinates> vertices, std::vector<SurfaceNumbers> surfaces) {
+  all_vertices = vertices;
+  all_surfaces = surfaces;
   data_initialized = true;
 }
 
@@ -49,13 +50,13 @@ void GlView::drawObjects() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, line_pattern);
 
-    for (int i = 0; i < data.count_surfaces; ++i) {
+    for (int i = 0; i < 3954; ++i) {
       glBegin(GL_LINE_LOOP);
-      for (int j = 0; j < data.all_surfaces[i].amount_of_vertices; ++j) {
+      for (int j = 0; j < 3; ++j) {
         glColor3d(1.0, 0.0, 0.0);
-        glVertex3d(data.all_vertices[data.all_surfaces[i].indices[j]].x,
-                   data.all_vertices[data.all_surfaces[i].indices[j]].y,
-                   data.all_vertices[data.all_surfaces[i].indices[j]].z);
+        glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,
+                   all_vertices[all_surfaces[i]._surface_numbers[j]]._y,
+                   all_vertices[all_surfaces[i]._surface_numbers[j]]._z);
       }
       glEnd();
     }
@@ -68,13 +69,13 @@ void GlView::drawObjects() {
       }
 
       glPointSize(size_vertices);
-      for (int i = 0; i < data.count_surfaces; ++i) {
+      for (int i = 0; i < 3954; ++i) {
         glBegin(GL_POINTS);
-        for (int j = 0; j < data.all_surfaces[i].amount_of_vertices; ++j) {
-          glVertex3d(data.all_vertices[data.all_surfaces[i].indices[j]].x,
-                   data.all_vertices[data.all_surfaces[i].indices[j]].y,
-                   data.all_vertices[data.all_surfaces[i].indices[j]].z);
-          }
+        for (int j = 0; j < 3; ++j) {
+            glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,
+                   all_vertices[all_surfaces[i]._surface_numbers[j]]._y,
+                   all_vertices[all_surfaces[i]._surface_numbers[j]]._z);
+        }
         glEnd();
       }
 
