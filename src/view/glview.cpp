@@ -33,7 +33,7 @@ void GlView::setupProjection() {
     glLoadIdentity();
 
     if (projection_type == Parallel) {
-      glOrtho(-1, 1, -1, 1, 1, 99999);
+      glOrtho(-1, 1, -1, 1, -1, 99999);
     } else if (projection_type == Central) {
       glFrustum(-0.5, 0.5, -0.5, 0.5, 1, 99999);
       glTranslatef(0, 0, -2.8);
