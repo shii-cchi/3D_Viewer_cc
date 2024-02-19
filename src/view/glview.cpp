@@ -1,6 +1,6 @@
 #include "glview.h"
 
-GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertex_type(Default) {}
+GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertices_type(Default) {}
 
 void GlView::sendData(obj_data file_data) {
   data = file_data;
@@ -62,8 +62,8 @@ void GlView::drawObjects() {
 
     glDisable(GL_LINE_STIPPLE);
 
-    if (vertex_type != Default) {
-      if (vertex_type == Circular) {
+    if (vertices_type != Default) {
+      if (vertices_type == Circular) {
         glEnable(GL_POINT_SMOOTH);
       }
 
@@ -78,7 +78,7 @@ void GlView::drawObjects() {
         glEnd();
       }
 
-      if (vertex_type == Circular) {
+      if (vertices_type == Circular) {
         glDisable(GL_POINT_SMOOTH);
       }
     }
@@ -157,13 +157,13 @@ void GlView::updateSizeVertices(int index) {
 void GlView::updateVerticesType(int index) {
     switch (index) {
         case 0:
-            vertex_type = Default;
+            vertices_type = Default;
             break;
         case 1:
-            vertex_type = Circular;
+            vertices_type = Circular;
             break;
         case 2:
-            vertex_type = Square;
+            vertices_type = Square;
             break;
     }
 

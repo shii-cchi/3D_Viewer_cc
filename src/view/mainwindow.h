@@ -4,6 +4,7 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 #include <QMainWindow>
+#include <QSettings>
 
 extern "C" {
 #include "../core/parser.h"
@@ -57,5 +58,7 @@ class MainWindow : public QMainWindow {
   QString getFileName(QString file_name);
   bool checkFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
+
+  QSettings settings;
 };
 #endif  // SRC_VIEW_MAINWINDOW_H

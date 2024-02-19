@@ -15,9 +15,59 @@ MainWindow::MainWindow(QWidget *parent)
   connect(this, SIGNAL(lineTypeChanged(int)), ui->view_window, SLOT(updateLineType(int)));
   connect(this, SIGNAL(sizeVerticesChanged(int)), ui->view_window, SLOT(updateSizeVertices(int)));
   connect(this, SIGNAL(verticesTypeChanged(int)), ui->view_window, SLOT(updateVerticesType(int)));
+
+  loadSettings();
 }
 
-MainWindow::~MainWindow() { delete ui; }
+MainWindow::~MainWindow() { 
+  saveSettings();
+  delete ui; 
+}
+
+  GLushort line_pattern;
+  enum projection_types {
+      Central,
+      Parallel,
+  };
+  projection_types projection_type;
+
+  float width_edge;
+  float size_vertices;
+  enum vertices_types {
+        Default,
+        Circular,
+        Square
+    };
+  vertices_types vertices_type;
+
+void MainWindow::saveSettings() {
+    QSettings settings("s21", "3D_Viewer");
+
+    settings.setValue("line_pattern", ui->line_pattern->currentIndex());
+    settings.setValue("projection_type", ui->projection_type->currentIndex());
+    settings.setValue("width_edge", ui->width_edge->currentIndex());
+    settings.setValue("size_vertices", ui->size_vertices->currentIndex());
+    settings.setValue("vertices_type", ui->vertices_type->currentIndex());
+}
+
+void MainWindow::loadSettings() {
+    QSettings settings("s21", "3D_Viewer");
+
+    int line_pattern_index = settings.value("line_pattern", 0).toInt();
+    ui->line_pattern->setCurrentIndex(line_pattern_index);
+
+    int projection_type_index = settings.value("projection_type", 0).toInt();
+    ui->projection_type->setCurrentIndex(projection_type_index);
+
+    int width_edge_index = settings.value("width_edge", 0).toInt();
+    ui->width_edge->setCurrentIndex(width_edge_index);
+
+    int size_vertices_index = settings.value("size_vertices", 0).toInt();
+    ui->size_vertices->setCurrentIndex(size_vertices_index);
+
+    int vertices_type_index = settings.value("vertices_type", 0).toInt();
+    ui->vertices_type->setCurrentIndex(vertices_type_index);
+}
 
 void MainWindow::on_pushButton_file_clicked() {
   setDefaultSettings();
