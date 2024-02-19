@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-project(3D_Viewer VERSION 1.0.0 LANGUAGES C CXX)
+project(3D_Viewer VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,10 +19,10 @@ add_executable(3D_Viewer
     view/mainwindow.ui
     view/glview.cc
     view/glview.h
-    viewer_contoller/viewer_contoller.cc
-    viewer_contoller/viewer_contoller.h
-    viewer_model/parcer.cc
-    viewer_model/parcer.h 
+    viewer_controller/viewer_controller.cc
+    viewer_controller/viewer_controller.h
+    viewer_model/parser.cc
+    viewer_model/parser.h
     viewer_model/transform.cc
     viewer_model/transform.h
     viewer_model/viewer_model.cc

@@ -2,7 +2,7 @@
 
 GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertices_type(Default) {}
 
-void GlView::sendData(std::vector<VertixCoordinates> vertices, std::vector<SurfaceNumbers> surfaces) {
+void GlView::sendData(std::vector<s21::VertixCoordinates> vertices, std::vector<s21::SurfaceNumbers> surfaces) {
   all_vertices = vertices;
   all_surfaces = surfaces;
   data_initialized = true;
@@ -50,7 +50,7 @@ void GlView::drawObjects() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, line_pattern);
 
-    for (int i = 0; i < 3954; ++i) {
+    for (int i = 0; i < 1000; ++i) {
       glBegin(GL_LINE_LOOP);
       for (int j = 0; j < 3; ++j) {
         glColor3d(1.0, 0.0, 0.0);
@@ -69,7 +69,7 @@ void GlView::drawObjects() {
       }
 
       glPointSize(size_vertices);
-      for (int i = 0; i < 3954; ++i) {
+      for (int i = 0; i < 1000; ++i) {
         glBegin(GL_POINTS);
         for (int j = 0; j < 3; ++j) {
             glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,

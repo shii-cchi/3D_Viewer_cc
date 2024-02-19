@@ -7,9 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   this->setWindowTitle("3D_Viewer");
 
-  data.all_vertices = nullptr;
-  data.all_surfaces = nullptr;
-
   connect(this, SIGNAL(projectionTypeChanged(int)), ui->view_window, SLOT(updateProjectionType(int)));
   connect(this, SIGNAL(widthEdgeChanged(int)), ui->view_window, SLOT(updateWidthEdge(int)));
   connect(this, SIGNAL(lineTypeChanged(int)), ui->view_window, SLOT(updateLineType(int)));
@@ -62,7 +59,8 @@ void MainWindow::on_pushButton_file_clicked() {
   if (file_name != "") {
    // clearData();
 
-    controller.SetData(file_name.toStdString());
+    std::string file_name_string = file_name.toStdString();
+    controller.SetData(file_name_string);
 
     ui->file_name->setText(getFileName(file_name));
 
@@ -71,6 +69,10 @@ void MainWindow::on_pushButton_file_clicked() {
 
     auto vertices = controller.GetVetrixCoordinate();
     auto surfaces = controller.GetSurfaceNum();
+
+    std::cout << vertices[surfaces[0]._surface_numbers[0]]._x << std::endl;
+    std::cout << vertices[surfaces[0]._surface_numbers[0]]._y << std::endl;
+    std::cout << vertices[surfaces[0]._surface_numbers[0]]._z << std::endl;
 
     ui->view_window->sendData(vertices, surfaces);
     ui->view_window->update();
@@ -124,7 +126,7 @@ void MainWindow::setDefaultSettings() {
 // }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-  clearData();
+  //clearData();
   event->accept();
 }
 
@@ -134,68 +136,68 @@ QString MainWindow::getFileName(QString file_name) {
   return file_name;
 }
 
-void MainWindow::on_pushButton_move_clicked() {
-  ui->error_xyz_scale->setText("");
+//void MainWindow::on_pushButton_move_clicked() {
+//  ui->error_xyz_scale->setText("");
 
-  if (checkFile()) {
-    bool x_err, y_err, z_err;
-    double shift_x = ui->x_move->text().toDouble(&x_err);
-    double shift_y = ui->y_move->text().toDouble(&y_err);
-    double shift_z = ui->z_move->text().toDouble(&z_err);
+//  if (checkFile()) {
+//    bool x_err, y_err, z_err;
+//    double shift_x = ui->x_move->text().toDouble(&x_err);
+//    double shift_y = ui->y_move->text().toDouble(&y_err);
+//    double shift_z = ui->z_move->text().toDouble(&z_err);
 
-    if (x_err && y_err && z_err) {
-      move_coord(shift_x, shift_y, shift_z, &data);
-    } else {
-      ui->error_xyz_scale->setText("Неверно введенные данные");
-    }
-    ui->view_window->update();
-  }
-}
+//    if (x_err && y_err && z_err) {
+//      move_coord(shift_x, shift_y, shift_z, &data);
+//    } else {
+//      ui->error_xyz_scale->setText("Неверно введенные данные");
+//    }
+//    ui->view_window->update();
+//  }
+//}
 
-void MainWindow::on_pushButton_rotate_clicked() {
-  ui->error_xyz_scale->setText("");
+//void MainWindow::on_pushButton_rotate_clicked() {
+//  ui->error_xyz_scale->setText("");
 
-  if (checkFile()) {
-    bool x_err, y_err, z_err;
-    double degree_x = ui->x_rotate->text().toDouble(&x_err);
-    double degree_y = ui->y_rotate->text().toDouble(&y_err);
-    double degree_z = ui->z_rotate->text().toDouble(&z_err);
+//  if (checkFile()) {
+//    bool x_err, y_err, z_err;
+//    double degree_x = ui->x_rotate->text().toDouble(&x_err);
+//    double degree_y = ui->y_rotate->text().toDouble(&y_err);
+//    double degree_z = ui->z_rotate->text().toDouble(&z_err);
 
-    if (x_err && y_err && z_err && isAngles(degree_x, degree_y, degree_z)) {
-      rotate(degree_x, degree_y, degree_z, &data);
-    } else {
-      ui->error_xyz_scale->setText("Неверно введенные данные");
-    }
-    ui->view_window->update();
-  }
-}
+//    if (x_err && y_err && z_err && isAngles(degree_x, degree_y, degree_z)) {
+//      rotate(degree_x, degree_y, degree_z, &data);
+//    } else {
+//      ui->error_xyz_scale->setText("Неверно введенные данные");
+//    }
+//    ui->view_window->update();
+//  }
+//}
 
-void MainWindow::on_pushButton_scale_clicked() {
-  ui->error_xyz_scale->setText("");
+//void MainWindow::on_pushButton_scale_clicked() {
+//  ui->error_xyz_scale->setText("");
 
-  if (checkFile()) {
-    bool ratio_err;
-    double ratio = ui->scale->text().toDouble(&ratio_err);
+//  if (checkFile()) {
+//    bool ratio_err;
+//    double ratio = ui->scale->text().toDouble(&ratio_err);
 
-    if (ratio_err && ratio > 0) {
-      scale(ratio, &data);
-    } else {
-      ui->error_xyz_scale->setText("Неверно введенные данные");
-    }
-    ui->view_window->update();
-  }
-}
+//    if (ratio_err && ratio > 0) {
+//      scale(ratio, &data);
+//    } else {
+//      ui->error_xyz_scale->setText("Неверно введенные данные");
+//    }
+//    ui->view_window->update();
+//  }
+//}
 
-bool MainWindow::checkFile() {
-  bool status = false;
+//bool MainWindow::checkFile() {
+//  bool status = false;
 
-  if (ui->file_name->text() != "" && data.count_vertices != 0 &&
-      data.count_surfaces != 0 && ui->error_file->text() == "") {
-    status = true;
-  }
+//  if (ui->file_name->text() != "" && data.count_vertices != 0 &&
+//      data.count_surfaces != 0 && ui->error_file->text() == "") {
+//    status = true;
+//  }
 
-  return status;
-}
+//  return status;
+//}
 
 bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
   bool status = false;
