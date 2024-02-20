@@ -7,6 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   this->setWindowTitle("3D_Viewer");
 
+  connect(pushButton_color_edges, &QPushButton::clicked, this, &MainWindow::openColorDialogEdges);
+  connect(pushButton_color_vertices, &QPushButton::clicked, this, &MainWindow::openColorDialogVertices);
+  connect(pushButton_color_back, &QPushButton::clicked, this, &MainWindow::openColorDialogBackground);
+  connect(&colorDialog, &QColorDialog::colorSelected, this, &MainWindow::colorSelected);
+
   connect(this, SIGNAL(projectionTypeChanged(int)), ui->view_window, SLOT(updateProjectionType(int)));
   connect(this, SIGNAL(widthEdgeChanged(int)), ui->view_window, SLOT(updateWidthEdge(int)));
   connect(this, SIGNAL(lineTypeChanged(int)), ui->view_window, SLOT(updateLineType(int)));
@@ -48,6 +53,25 @@ void MainWindow::loadSettings() {
 
     int vertices_type_index = settings.value("vertices_type", 0).toInt();
     ui->vertices_type->setCurrentIndex(vertices_type_index);
+}
+
+void MainWindow::openColorDialogEdges() {
+  currentParam = 0;
+  colorDialog.show();
+}
+
+void MainWindow::openColorDialogVertices() {
+  currentParam = 1;
+  colorDialog.show();
+}
+
+void MainWindow::openColorDialogBackground() {
+  currentParam = 2;
+  colorDialog.show();
+}
+
+void MainWindow::colorSelected(const QColor &color) {
+  emit colorChanged(currentParam, color);
 }
 
 void MainWindow::on_pushButton_file_clicked() {

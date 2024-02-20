@@ -4,6 +4,7 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 #include <QMainWindow>
+#include <QColorDialog>
 #include <QSettings>
 
 #include "../viewer_controller/viewer_controller.h"
@@ -27,6 +28,7 @@ class MainWindow : public QMainWindow {
   void lineTypeChanged(int index);
   void sizeVerticesChanged(int index);
   void verticesTypeChanged(int index);
+  void colorChanged(int param, const QColor &color);
 
  private slots:
   void on_pushButton_file_clicked();
@@ -40,6 +42,11 @@ class MainWindow : public QMainWindow {
   void on_size_vertices_currentIndexChanged(int index);
   void on_vertices_type_currentIndexChanged(int index);
 
+  void openColorDialogEdges();
+  void openColorDialogVertices();
+  void openColorDialogBackground();
+  void colorSelected(const QColor &color);
+
   private:
   Ui::MainWindow *ui;
   std::vector<s21::VertixCoordinates> vertices;
@@ -52,8 +59,10 @@ class MainWindow : public QMainWindow {
   bool checkFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
 
-
   s21::ViewerController controller;
+
+  QColorDialog colorDialog;
+  int currentParam;
 
   QSettings settings;
   void loadSettings();

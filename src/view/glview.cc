@@ -1,6 +1,6 @@
 #include "glview.h"
 
-GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertices_type(Default) {}
+GlView::GlView(QWidget *parent) : QOpenGLWidget(parent), data_initialized(false), line_pattern(0xFFFF), projection_type(Central), width_edge(1), size_vertices(1), vertices_type(Default), edges_color(0, 0, 0), vertices_color(255, 0, 0), background_color(255, 255, 255)  {}
 
 void GlView::sendData(std::vector<s21::VertixCoordinates> vertices, std::vector<s21::SurfaceNumbers> surfaces, unsigned int amount_surfaces) {
   all_vertices = vertices;
@@ -17,7 +17,7 @@ void GlView::initializeGL() {
 void GlView::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
 
 void GlView::setupOpenGLState() {
-    glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(background_color.redF(), background_color.greenF(), background_color.blueF(), 1.0f);
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -58,7 +58,7 @@ void GlView::drawObjects() {
     for (int i = 0; i < count_surfaces; ++i) {
       glBegin(GL_LINE_LOOP);
       for (int j = 0; j < 3; ++j) {
-        glColor3d(1.0, 0.0, 0.0);
+        glColor3d(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
         glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,
                    all_vertices[all_surfaces[i]._surface_numbers[j]]._y,
                    all_vertices[all_surfaces[i]._surface_numbers[j]]._z);
@@ -77,6 +77,7 @@ void GlView::drawObjects() {
       for (int i = 0; i < count_surfaces; ++i) {
         glBegin(GL_POINTS);
         for (int j = 0; j < 3; ++j) {
+            glColor3d(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
             glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,
                    all_vertices[all_surfaces[i]._surface_numbers[j]]._y,
                    all_vertices[all_surfaces[i]._surface_numbers[j]]._z);
@@ -170,6 +171,22 @@ void GlView::updateVerticesType(int index) {
             break;
         case 2:
             vertices_type = Square;
+            break;
+    }
+
+    update();
+}
+
+void GlView::onColorChanged(int param, const QColor &color) {
+    switch (param) {
+        case 0:
+            edges_color = color;
+            break;
+        case 1:
+            vertices_color = color;
+            break;
+        case 2:
+            background_color = color;
             break;
     }
 

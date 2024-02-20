@@ -20,6 +20,7 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   void updateLineType(int index);
   void updateSizeVertices(int index);
   void updateVerticesType(int index);
+  void onColorChanged(int param, const QColor &color);
 
  private:
   void initializeGL() override;
@@ -46,6 +47,10 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
         Square
     };
   vertices_types vertices_type;
+
+  Qcolor edges_color;
+  Qcolor vertices_color;
+  Qcolor background_color;
 
   void setupProjection();
   void drawObjects();
