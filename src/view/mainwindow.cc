@@ -70,10 +70,6 @@ void MainWindow::on_pushButton_file_clicked() {
     vertices = controller.GetVetrixCoordinate();
     surfaces = controller.GetSurfaceNum();
 
-    std::cout << vertices[surfaces[0]._surface_numbers[0]]._x << std::endl;
-    std::cout << vertices[surfaces[0]._surface_numbers[0]]._y << std::endl;
-    std::cout << vertices[surfaces[0]._surface_numbers[0]]._z << std::endl;
-
     ui->view_window->sendData(vertices, surfaces);
     ui->view_window->update();
 

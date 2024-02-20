@@ -6,7 +6,6 @@
 #include <QMainWindow>
 #include <QSettings>
 
-#include "../viewer_model/parser.h"
 #include "../viewer_controller/viewer_controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -31,12 +30,9 @@ class MainWindow : public QMainWindow {
 
  private slots:
   void on_pushButton_file_clicked();
-
-//  void on_pushButton_move_clicked();
-
-//  void on_pushButton_rotate_clicked();
-
-//  void on_pushButton_scale_clicked();
+  void on_pushButton_move_clicked();
+  void on_pushButton_rotate_clicked();
+  void on_pushButton_scale_clicked();
 
   void on_projection_type_currentIndexChanged(int index);
   void on_width_edge_currentIndexChanged(int index);

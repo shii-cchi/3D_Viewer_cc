@@ -4,7 +4,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 
-#include "../viewer_model/parser.h"
+#include "../viewer_controller/viewer_controller.h"
 
 class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
