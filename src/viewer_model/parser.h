@@ -54,10 +54,11 @@ public:
   static auto GetAmountEdges() { return _all_edges.size(); }
   size_t Size() const override { return _surface_numbers.size(); }
 
+  std::vector<unsigned int> _surface_numbers;
+
 private:
   static inline unsigned int _amount_surfaces{};
   static inline std::set<std::set<unsigned int>> _all_edges;
-  std::vector<unsigned int> _surface_numbers;
 };
 
 struct CreateDataStructure {

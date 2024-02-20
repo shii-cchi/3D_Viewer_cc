@@ -62,21 +62,18 @@ void MainWindow::on_pushButton_file_clicked() {
 
     ui->file_name->setText(getFileName(file_name));
 
-    amount_surfaces = controller.GetAmountSurfaces();
-    amount_edges = controller.GetAmountEdges();
     vertices = controller.GetVetrixCoordinate();
     surfaces = controller.GetSurfaceNum();
+    amount_surfaces = controller.GetAmountSurfaces();
+    amount_edges = controller.GetAmountEdges();
 
-    ui->count_vertices->setText(QString::number(vertices.size()));
+    ui->count_vertices->setText(QString::number(vertices.size() - 1));
     ui->count_edges->setText(QString::number(amount_edges));
 
-    ui->view_window->sendData(vertices, surfaces, amount_surfaces);
-    ui->view_window->update();
-
-    if (vertices.size() != 0 && amount_surfaces != 0) {
-      ui->view_window->sendData(data);
-      ui->view_window->update();
-    } else if (vertices.size() == 0 && amount_surfaces == 0) {
+    if (vertices.size() - 1 != 0 && amount_surfaces != 0) {
+        ui->view_window->sendData(vertices, surfaces, amount_surfaces);
+        ui->view_window->update();
+    } else if (vertices.size() - 1 == 0 && amount_surfaces == 0) {
       ui->error_file->setText("Файл пустой");
     } else {
       ui->error_file->setText("Недостаточно данных");
@@ -91,7 +88,7 @@ void MainWindow::setDefaultSettings() {
   ui->error_xyz_scale->setText("");
   ui->file_name->setText("");
   ui->count_vertices->setText("");
-  ui->count_surfaces->setText("");
+  ui->count_edges->setText("");
   ui->x_move->setText("0");
   ui->y_move->setText("0");
   ui->z_move->setText("0");
@@ -179,7 +176,7 @@ void MainWindow::on_pushButton_scale_clicked() {
 bool MainWindow::checkFile() {
  bool status = false;
 
- if (ui->file_name->text() != "" && vertices.size() != 0 &&
+ if (ui->file_name->text() != "" && vertices.size() - 1 != 0 &&
      amount_surfaces != 0 && ui->error_file->text() == "") {
    status = true;
  }
