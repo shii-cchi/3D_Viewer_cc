@@ -11,7 +11,7 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
  public:
   explicit GlView(QWidget *parent = nullptr);
 
-  void sendData(std::vector<s21::VertixCoordinates> all_vertices, std::vector<s21::SurfaceNumbers> all_surfaces);
+  void sendData(std::vector<s21::VertixCoordinates> all_vertices, std::vector<s21::SurfaceNumbers> all_surfaces, unsigned int amount_surfaces);
   void setupOpenGLState();
 
  public slots:
@@ -28,6 +28,7 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
 
   std::vector<s21::VertixCoordinates> all_vertices;
   std::vector<s21::SurfaceNumbers> all_surfaces;
+  unsigned int count_surfaces;
   bool data_initialized;
 
   GLushort line_pattern;

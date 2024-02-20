@@ -57,30 +57,30 @@ void MainWindow::on_pushButton_file_clicked() {
       this, tr("Open File"), "/home/", tr("Files (*.obj)"));
 
   if (file_name != "") {
-   // clearData();
-
     std::string file_name_string = file_name.toStdString();
     controller.SetData(file_name_string);
 
     ui->file_name->setText(getFileName(file_name));
 
-    // ui->count_vertices->setText(QString::number(data.count_vertices));
-    // ui->count_surfaces->setText(QString::number(data.count_surfaces));
-
+    amount_surfaces = controller.GetAmountSurfaces();
+    amount_edges = controller.GetAmountEdges();
     vertices = controller.GetVetrixCoordinate();
     surfaces = controller.GetSurfaceNum();
 
-    ui->view_window->sendData(vertices, surfaces);
+    ui->count_vertices->setText(QString::number(vertices.size()));
+    ui->count_edges->setText(QString::number(amount_edges));
+
+    ui->view_window->sendData(vertices, surfaces, amount_surfaces);
     ui->view_window->update();
 
-    // if (data.count_vertices != 0 && data.count_surfaces != 0) {
-    //   ui->view_window->sendData(data);
-    //   ui->view_window->update();
-    // } else if (data.count_vertices == 0 && data.count_surfaces == 0) {
-    //   ui->error_file->setText("Файл пустой");
-    // } else {
-    //   ui->error_file->setText("Недостаточно данных");
-    // }
+    if (vertices.size() != 0 && amount_surfaces != 0) {
+      ui->view_window->sendData(data);
+      ui->view_window->update();
+    } else if (vertices.size() == 0 && amount_surfaces == 0) {
+      ui->error_file->setText("Файл пустой");
+    } else {
+      ui->error_file->setText("Недостаточно данных");
+    }
   } else {
     ui->error_file->setText("Откройте файл");
   }
@@ -103,29 +103,6 @@ void MainWindow::setDefaultSettings() {
   ui->view_window->setupOpenGLState();
 }
 
-// void MainWindow::clearData() {
-//   if (data.all_vertices != nullptr) {
-//     free(data.all_vertices);
-//     data.all_vertices = nullptr;
-//   }
-
-//   if (data.all_surfaces != nullptr) {
-//     for (int i = 0; i < data.count_surfaces; i++) {
-//       free(data.all_surfaces[i].indices);
-//     }
-//     free(data.all_surfaces);
-//     data.all_surfaces = nullptr;
-//   }
-
-//   data.count_vertices = 0;
-//   data.count_surfaces = 0;
-// }
-
-void MainWindow::closeEvent(QCloseEvent *event) {
-  //clearData();
-  event->accept();
-}
-
 QString MainWindow::getFileName(QString file_name) {
   QStringList splited_str = file_name.split("/");
   file_name = splited_str.last();
@@ -135,7 +112,7 @@ QString MainWindow::getFileName(QString file_name) {
 void MainWindow::on_pushButton_move_clicked() {
  ui->error_xyz_scale->setText("");
 
- //if (checkFile()) {
+ if (checkFile()) {
    bool x_err, y_err, z_err;
    double shift_x = ui->x_move->text().toDouble(&x_err);
    double shift_y = ui->y_move->text().toDouble(&y_err);
@@ -153,13 +130,13 @@ void MainWindow::on_pushButton_move_clicked() {
      ui->error_xyz_scale->setText("Неверно введенные данные");
    }
    ui->view_window->update();
- //}
+ }
 }
 
 void MainWindow::on_pushButton_rotate_clicked() {
  ui->error_xyz_scale->setText("");
 
- //if (checkFile()) {
+ if (checkFile()) {
    bool x_err, y_err, z_err;
    double degree_x = ui->x_rotate->text().toDouble(&x_err);
    double degree_y = ui->y_rotate->text().toDouble(&y_err);
@@ -176,13 +153,13 @@ void MainWindow::on_pushButton_rotate_clicked() {
      ui->error_xyz_scale->setText("Неверно введенные данные");
    }
    ui->view_window->update();
- //}
+ }
 }
 
 void MainWindow::on_pushButton_scale_clicked() {
  ui->error_xyz_scale->setText("");
 
- //if (checkFile()) {
+ if (checkFile()) {
    bool ratio_err;
    double ratio = ui->scale->text().toDouble(&ratio_err);
 
@@ -196,19 +173,19 @@ void MainWindow::on_pushButton_scale_clicked() {
      ui->error_xyz_scale->setText("Неверно введенные данные");
    }
    ui->view_window->update();
- //}
+ }
 }
 
-//bool MainWindow::checkFile() {
-//  bool status = false;
+bool MainWindow::checkFile() {
+ bool status = false;
 
-//  if (ui->file_name->text() != "" && data.count_vertices != 0 &&
-//      data.count_surfaces != 0 && ui->error_file->text() == "") {
-//    status = true;
-//  }
+ if (ui->file_name->text() != "" && vertices.size() != 0 &&
+     amount_surfaces != 0 && ui->error_file->text() == "") {
+   status = true;
+ }
 
-//  return status;
-//}
+ return status;
+}
 
 bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
   bool status = false;

@@ -44,12 +44,12 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow *ui;
   std::vector<s21::VertixCoordinates> vertices;
   std::vector<s21::SurfaceNumbers> surfaces;
+  unsigned int amount_surfaces;
+  unsigned int amount_edges;
 
   void setDefaultSettings();
- // void clearData();
-  void closeEvent(QCloseEvent *event) override;
   QString getFileName(QString file_name);
-  //bool checkFile();
+  bool checkFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
 
 
