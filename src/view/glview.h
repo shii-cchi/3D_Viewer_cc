@@ -48,9 +48,9 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
     };
   vertices_types vertices_type;
 
-  Qcolor edges_color;
-  Qcolor vertices_color;
-  Qcolor background_color;
+  QColor edges_color;
+  QColor vertices_color;
+  QColor background_color;
 
   void setupProjection();
   void drawObjects();

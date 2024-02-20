@@ -18,11 +18,13 @@ void GlView::resizeGL(int w, int h) { glViewport(0, 0, w, h); }
 
 void GlView::setupOpenGLState() {
     glClearColor(background_color.redF(), background_color.greenF(), background_color.blueF(), 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 }
 
 void GlView::paintGL() {
     if (data_initialized) {
+        setupOpenGLState();
         setupProjection();
         glEnableClientState(GL_VERTEX_ARRAY);
         drawObjects();
@@ -46,10 +48,6 @@ void GlView::setupProjection() {
 }
 
 void GlView::drawObjects() {
-    printf("d-%f\n", all_vertices[all_surfaces[0]._surface_numbers[0]]._x);
-    printf("d-%f\n", all_vertices[all_surfaces[0]._surface_numbers[0]]._y);
-    printf("d-%f\n", all_vertices[all_surfaces[0]._surface_numbers[0]]._z);
-
     glLineWidth(width_edge);
 
     glEnable(GL_LINE_STIPPLE);
