@@ -46,6 +46,10 @@ void GlView::setupProjection() {
 }
 
 void GlView::drawObjects() {
+    printf("d-%f\n", all_vertices[all_surfaces[0]._surface_numbers[0]]._x);
+    printf("d-%f\n", all_vertices[all_surfaces[0]._surface_numbers[0]]._y);
+    printf("d-%f\n", all_vertices[all_surfaces[0]._surface_numbers[0]]._z);
+
     glLineWidth(width_edge);
 
     glEnable(GL_LINE_STIPPLE);

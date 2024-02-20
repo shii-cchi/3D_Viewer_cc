@@ -67,6 +67,10 @@ void MainWindow::on_pushButton_file_clicked() {
     amount_surfaces = controller.GetAmountSurfaces();
     amount_edges = controller.GetAmountEdges();
 
+    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._x);
+    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._y);
+    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._z);
+
     ui->count_vertices->setText(QString::number(vertices.size() - 1));
     ui->count_edges->setText(QString::number(amount_edges));
 
@@ -126,6 +130,7 @@ void MainWindow::on_pushButton_move_clicked() {
    } else {
      ui->error_xyz_scale->setText("Неверно введенные данные");
    }
+   ui->view_window->sendData(vertices, surfaces, amount_surfaces);
    ui->view_window->update();
  }
 }
@@ -149,6 +154,7 @@ void MainWindow::on_pushButton_rotate_clicked() {
    } else {
      ui->error_xyz_scale->setText("Неверно введенные данные");
    }
+   ui->view_window->sendData(vertices, surfaces, amount_surfaces);
    ui->view_window->update();
  }
 }
@@ -169,6 +175,7 @@ void MainWindow::on_pushButton_scale_clicked() {
    } else {
      ui->error_xyz_scale->setText("Неверно введенные данные");
    }
+   ui->view_window->sendData(vertices, surfaces, amount_surfaces);
    ui->view_window->update();
  }
 }
