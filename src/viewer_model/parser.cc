@@ -24,17 +24,34 @@ void VertixCoordinates::PushBack(double val) {
   _size++;
   switch (_size) {
   case 1:
+    _max_coord_x = (val > _max_coord_x) ? val : _max_coord_x;
+    _min_coord_x = (val < _min_coord_x) ? val : _min_coord_x;
     _x = val;
     break;
   case 2:
+    _max_coord_y = (val > _max_coord_y) ? val : _max_coord_y;
+    _min_coord_y = (val < _min_coord_y) ? val : _min_coord_y;
     _y = val;
     break;
   case 3:
+    _max_coord_z = (val > _max_coord_z) ? val : _max_coord_z;
+    _min_coord_z = (val < _min_coord_z) ? val : _min_coord_z;
     _z = val;
     break;
   default:
     throw std::range_error("Vertex overflow!\n");
     break;
+  }
+}
+
+void SurfaceNumbers::PushBack(double val) {
+  unsigned int num = static_cast<unsigned int>(val);
+  _surface_numbers.push_back(num);
+  if (_surface_numbers.size() > 1) {
+    for (size_t i = 0; i < _surface_numbers.size() - 1; i++) {
+      _all_edges.insert(std::set{
+          _surface_numbers[i], _surface_numbers[_surface_numbers.size() - 1]});
+    }
   }
 }
 
@@ -45,7 +62,7 @@ Parser::ParseFile(std::ifstream &file) {
   CreateSurface creator_surf;
   CreateVertix creator_vert;
   CreateDataStructure *creators[] = {&creator_surf, &creator_vert};
-  std::map<char, unsigned int> type = {{'v', 0}, {'f', 1}};
+  std::map<std::string, unsigned int> type = {{"v ", 0}, {"f ", 1}};
   std::string line;
   auto push_data = [](std::string &buffer, DataFromFile *data_file) {
     data_file->PushBack(std::stod(buffer));
@@ -54,11 +71,13 @@ Parser::ParseFile(std::ifstream &file) {
   auto parse_line = [&line, &push_data](DataFromFile *data_file) {
     std::string buffer;
     unsigned int pos = 0;
-    while (line[pos] != '\r') {
+    while (pos < line.size() && line[pos] != '\r') {
       pos = (line.find(" ", pos) < line.find("\r", pos))
                 ? line.find(" ", pos) + 1
                 : line.find("\r", pos);
-      while (std::isdigit(line[pos]) || line[pos] == '.' || line[pos] == '-') {
+      while (
+          pos < line.size() && pos != std::string::npos &&
+          (std::isdigit(line[pos]) || line[pos] == '.' || line[pos] == '-')) {
         buffer.push_back(line[pos]);
         pos++;
       }
@@ -69,8 +88,9 @@ Parser::ParseFile(std::ifstream &file) {
   };
 
   while (std::getline(file, line)) {
-    if (type.count(line[0])) {
-      switch (type[line[0]]) {
+    std::string type_coord(std::string(line.begin(), line.begin() + 2));
+    if (type.count(type_coord)) {
+      switch (type[type_coord]) {
       case 0:
         data_file = creators[1]->Create();
         parse_line(data_file);

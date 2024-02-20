@@ -87,10 +87,15 @@ public:
   void ScaleForward(double val);
   void ScaleBack(double val);
 
-  void SetData(std::string &path) { _model.ParseFile(path); };
+  void Centering() { _model.Centering(); }
+  void Rescale() { _model.Rescale(); }
 
-  auto GetVetrixCoordinate() const { return _model.GetVertices(); };
-  auto GetSurfaceNum() const { return _model.GetSurfaces(); };
+  void SetData(std::string &path) { _model.ParseFile(path); }
+
+  auto GetVetrixCoordinate() const { return _model.GetVertices(); }
+  auto GetSurfaceNum() const { return _model.GetSurfaces(); }
+  auto GetAmountSurfaces() const { return _model.GetAmountSurfaces(); }
+  auto GetAmountEdges() const { return _model.GetAmountEdges(); }
 
 private:
   ViewerModel _model;

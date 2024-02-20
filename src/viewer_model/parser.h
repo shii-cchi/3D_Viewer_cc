@@ -3,34 +3,60 @@
 
 #include <fstream>
 #include <map>
+#include <set>
 #include <vector>
 
 namespace s21 {
 
-struct DataFromFile {
+class DataFromFile {
+public:
   virtual void PushBack(double val) = 0;
+  virtual size_t Size() const = 0;
   virtual ~DataFromFile() = default;
 };
 
-struct VertixCoordinates : public DataFromFile {
+class VertixCoordinates : public DataFromFile {
 public:
   VertixCoordinates() : _x(0), _y(0), _z(0), _size(0) {}
   ~VertixCoordinates() override = default;
+
+  static double GetMaxX() { return _max_coord_x; }
+  static double GetMaxY() { return _max_coord_y; }
+  static double GetMaxZ() { return _max_coord_z; }
+  static double GetMinX() { return _min_coord_x; }
+  static double GetMinY() { return _min_coord_y; }
+  static double GetMinZ() { return _min_coord_z; }
+  size_t Size() const override { return _size; };
+
   double &operator[](size_t index);
   void PushBack(double val) override;
   double _x, _y, _z;
 
 private:
+  static inline double _max_coord_x{};
+  static inline double _max_coord_y{};
+  static inline double _max_coord_z{};
+  static inline double _min_coord_x{};
+  static inline double _min_coord_y{};
+  static inline double _min_coord_z{};
   size_t _size;
 };
 
-struct SurfaceNumbers : public DataFromFile {
-  unsigned int &operator[](size_t index) { return _surface_numbers[index]; }
-  void PushBack(double val) override {
-    unsigned int num = static_cast<unsigned int>(val);
-    _surface_numbers.push_back(num);
-  }
+class SurfaceNumbers : public DataFromFile {
+public:
+  SurfaceNumbers() { _amount_surfaces++; }
   ~SurfaceNumbers() override = default;
+
+  unsigned int &operator[](size_t index) { return _surface_numbers[index]; }
+  void PushBack(double val) override;
+
+  static auto GetAmountSurfaces() { return _amount_surfaces; }
+  static auto GetAmountEdges() { return _all_edges.size(); }
+  size_t Size() const override { return _surface_numbers.size(); }
+
+private:
+  static inline unsigned int _amount_surfaces{};
+  static inline std::set<std::set<unsigned int>> _all_edges;
   std::vector<unsigned int> _surface_numbers;
 };
 
@@ -49,7 +75,7 @@ struct CreateSurface : public CreateDataStructure {
 class GeometryData final {
 public:
   // Начинается с идекса 1
-  GeometryData() : _amount_edges(0) {
+  GeometryData() {
     VertixCoordinates vertix;
     _data.first.push_back(vertix);
   };
@@ -61,7 +87,6 @@ public:
 
 private:
   std::pair<std::vector<VertixCoordinates>, std::vector<SurfaceNumbers>> _data;
-  unsigned int _amount_edges;
 };
 
 class Parser final {

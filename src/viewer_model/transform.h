@@ -1,6 +1,8 @@
 #ifndef CPP4_3DVIEWER_MODEL_TRANSFORM_H
 #define CPP4_3DVIEWER_MODEL_TRANSFORM_H
 
+#include <algorithm>
+#include <array>
 #include <cmath>
 
 #include "parser.h"
@@ -63,6 +65,15 @@ public:
 
 private:
   TransformStrategy *_strategy;
+};
+
+class Scaler {
+public:
+  void Centering(std::vector<VertixCoordinates> &coordinates);
+  void Rescale(std::vector<VertixCoordinates> &coordinates);
+
+private:
+  mutable std::vector<VertixCoordinates> _centered_coord;
 };
 
 } // namespace s21
