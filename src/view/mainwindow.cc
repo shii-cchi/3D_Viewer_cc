@@ -77,6 +77,7 @@ void MainWindow::colorSelected(const QColor &color) {
 
 void MainWindow::on_pushButton_file_clicked() {
   setDefaultSettings();
+  controller.Clear();
 
   QString file_name = QFileDialog::getOpenFileName(
       this, tr("Open File"), "/home/", tr("Files (*.obj)"));
