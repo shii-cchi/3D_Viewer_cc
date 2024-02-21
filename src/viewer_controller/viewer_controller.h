@@ -91,6 +91,7 @@ public:
   void Rescale() { _model.Rescale(); }
 
   void SetData(std::string &path) { _model.ParseFile(path); }
+  void Clear() { _model.Clear(); }
 
   auto GetVetrixCoordinate() const { return _model.GetVertices(); }
   auto GetSurfaceNum() const { return _model.GetSurfaces(); }

@@ -30,7 +30,14 @@ public:
 
   double &operator[](size_t index);
   void PushBack(double val) override;
-  double _x, _y, _z;
+  static void Clear() {
+    _max_coord_x = 0;
+    _max_coord_y = 0;
+    _max_coord_z = 0;
+    _min_coord_x = 0;
+    _min_coord_y = 0;
+    _min_coord_z = 0;
+  }
 
 private:
   static inline double _max_coord_x{};
@@ -39,6 +46,7 @@ private:
   static inline double _min_coord_x{};
   static inline double _min_coord_y{};
   static inline double _min_coord_z{};
+  double _x, _y, _z;
   size_t _size;
 };
 
@@ -49,6 +57,10 @@ public:
 
   unsigned int &operator[](size_t index) { return _surface_numbers[index]; }
   void PushBack(double val) override;
+  static void Clear() {
+    _amount_surfaces = 0;
+    _all_edges.clear();
+  };
 
   static auto GetAmountSurfaces() { return _amount_surfaces; }
   static auto GetAmountEdges() { return _all_edges.size(); }

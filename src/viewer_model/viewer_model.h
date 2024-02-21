@@ -33,6 +33,12 @@ public:
   void ScaleZ(double val);
 
   void ParseFile(std::string &path);
+  void Clear() {
+    VertixCoordinates::Clear();
+    SurfaceNumbers::Clear();
+    _vertices_coord.clear();
+    _surface_num.clear();
+  };
 
 private:
   std::vector<VertixCoordinates> _vertices_coord;
