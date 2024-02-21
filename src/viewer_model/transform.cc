@@ -14,7 +14,7 @@ void RotateStrategy::TransformationX(std::vector<VertixCoordinates> &vec) {
 void RotateStrategy::TransformationY(std::vector<VertixCoordinates> &vec) {
   for (auto &coord : vec) {
     double tmp_x = coord[0];
-    coord[0] = coord[0] * cos(_val) + coord[3] * sin(_val);
+    coord[0] = coord[0] * cos(_val) + coord[2] * sin(_val);
     coord[2] = -tmp_x * sin(_val) + coord[2] * cos(_val);
   }
 }
