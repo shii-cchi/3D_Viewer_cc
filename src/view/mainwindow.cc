@@ -35,6 +35,10 @@ void MainWindow::saveSettings() {
     settings.setValue("width_edge", ui->width_edge->currentIndex());
     settings.setValue("size_vertices", ui->size_vertices->currentIndex());
     settings.setValue("vertices_type", ui->vertices_type->currentIndex());
+
+    settings.setValue("edges_color", edges_color);
+    settings.setValue("vertices_color", vertices_color);
+    settings.setValue("background_color", background_color);
 }
 
 void MainWindow::loadSettings() {
@@ -54,6 +58,14 @@ void MainWindow::loadSettings() {
 
     int vertices_type_index = settings.value("vertices_type", 0).toInt();
     ui->vertices_type->setCurrentIndex(vertices_type_index);
+
+    edges_color = settings.value("edges_color", QColor(0, 0, 0)).value<QColor>();
+    vertices_color = settings.value("vertices_color", QColor(255, 0, 0)).value<QColor>();
+    background_color = settings.value("background_color", QColor(255, 255, 255)).value<QColor>();
+
+    emit colorChanged(0, edges_color);
+    emit colorChanged(1, vertices_color);
+    emit colorChanged(2, background_color);
 }
 
 void MainWindow::openColorDialogEdges() {

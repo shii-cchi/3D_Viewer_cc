@@ -63,6 +63,9 @@ class MainWindow : public QMainWindow {
 
   QColorDialog colorDialog;
   int currentParam;
+  QColor edges_color;
+  QColor vertices_color;
+  QColor background_color;
 
   QSettings settings;
   void loadSettings();
