@@ -36,33 +36,15 @@ void MainWindow::saveSettings() {
     settings.setValue("size_vertices", ui->size_vertices->currentIndex());
     settings.setValue("vertices_type", ui->vertices_type->currentIndex());
 
-    printf("%d\n", edges_color.red());
-    printf("%d\n",  edges_color.green());
-    printf("%d\n", edges_color.blue());
-  //  settings.setValue("edges_color", edges_color);
-  //  settings.setValue("vertices_color", vertices_color);
-  //  settings.setValue("background_color", background_color);
-
-  settings.setValue("edges_color_red", edges_color.red());
-  settings.setValue("edges_color_green", edges_color.green());
-  settings.setValue("edges_color_blue", edges_color.blue());
-
-  settings.setValue("vertices_color_red", vertices_color.red());
-  settings.setValue("vertices_color_green", vertices_color.green());
-  settings.setValue("vertices_color_blue", vertices_color.blue());
-
-  settings.setValue("background_color_red", background_color.red());
-  settings.setValue("background_color_green", background_color.green());
-  settings.setValue("background_color_blue", background_color.blue());
-
- // edges_color = settings.value("edges_color", QColor(0, 0, 0)).value<QColor>();
- // vertices_color = settings.value("vertices_color", QColor(255, 0, 0)).value<QColor>();
- // background_color = settings.value("background_color", QColor(255, 255, 255)).value<QColor>();
-
-
-  //  printf("%d\n", edges_color.red());
-  //  printf("%d\n",  edges_color.green());
-  //  printf("%d\n", edges_color.blue());
+    settings.setValue("edges_color_red", edges_color.red());
+    settings.setValue("edges_color_green", edges_color.green());
+    settings.setValue("edges_color_blue", edges_color.blue());
+    settings.setValue("vertices_color_red", vertices_color.red());
+    settings.setValue("vertices_color_green", vertices_color.green());
+    settings.setValue("vertices_color_blue", vertices_color.blue());
+    settings.setValue("background_color_red", background_color.red());
+    settings.setValue("background_color_green", background_color.green());
+    settings.setValue("background_color_blue", background_color.blue());
 }
 
 void MainWindow::loadSettings() {
@@ -98,13 +80,6 @@ void MainWindow::loadSettings() {
     int background_blue = settings.value("background_color_blue", 255).toInt();
     background_color = QColor(background_red, background_green, background_blue);
 
-   // edges_color = settings.value("edges_color", QColor(0, 0, 0)).value<QColor>();
-   // vertices_color = settings.value("vertices_color", QColor(255, 0, 0)).value<QColor>();
-   // background_color = settings.value("background_color", QColor(255, 255, 255)).value<QColor>();
-
-    printf("%d\n", edges_color.red());
-    printf("%d\n",  edges_color.green());
-    printf("%d\n", edges_color.blue());
     emit colorChanged(0, edges_color);
     emit colorChanged(1, vertices_color);
     emit colorChanged(2, background_color);
