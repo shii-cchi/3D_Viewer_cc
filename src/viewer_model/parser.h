@@ -17,7 +17,7 @@ public:
 
 class VertixCoordinates : public DataFromFile {
 public:
-  VertixCoordinates() : _x(0), _y(0), _z(0), _size(0) {}
+  VertixCoordinates() : _x(0), _y(0), _z(0), _size(0) { _amount_vert++; }
   ~VertixCoordinates() override = default;
 
   static double GetMaxX() { return _max_coord_x; }
@@ -26,6 +26,12 @@ public:
   static double GetMinX() { return _min_coord_x; }
   static double GetMinY() { return _min_coord_y; }
   static double GetMinZ() { return _min_coord_z; }
+  static void SetMaxX(double val) { _max_coord_x = val; }
+  static void SetMaxY(double val) { _max_coord_y = val; }
+  static void SetMaxZ(double val) { _max_coord_z = val; }
+  static void SetMinX(double val) { _min_coord_x = val; }
+  static void SetMinY(double val) { _min_coord_y = val; }
+  static void SetMinZ(double val) { _min_coord_z = val; }
   size_t Size() const override { return _size; };
 
   double &operator[](size_t index);
@@ -46,6 +52,7 @@ private:
   static inline double _min_coord_x{};
   static inline double _min_coord_y{};
   static inline double _min_coord_z{};
+  static inline double _amount_vert{};
   double _x, _y, _z;
   size_t _size;
 };

@@ -33,6 +33,12 @@ public:
   void ScaleZ(double val);
 
   void ParseFile(std::string &path);
+  void ParseFileNotCentered(std::string &path);
+  void CenteringRescale(std::vector<VertixCoordinates> &coord) {
+    _scaler.Centering(coord);
+    _scaler.Rescale(coord);
+  }
+
   void Clear() {
     VertixCoordinates::Clear();
     SurfaceNumbers::Clear();

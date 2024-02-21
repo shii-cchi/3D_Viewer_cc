@@ -91,6 +91,9 @@ public:
   void Rescale() { _model.Rescale(); }
 
   void SetData(std::string &path) { _model.ParseFile(path); }
+  void SetDataNotCentered(std::string &path) {
+    _model.ParseFileNotCentered(path);
+  }
   void Clear() { _model.Clear(); }
 
   auto GetVetrixCoordinate() const { return _model.GetVertices(); }

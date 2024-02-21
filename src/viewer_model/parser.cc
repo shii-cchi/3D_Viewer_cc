@@ -21,27 +21,35 @@ double &VertixCoordinates::operator[](size_t index) {
 }
 
 void VertixCoordinates::PushBack(double val) {
+  auto max_min_coord = [&](double &max_val, double &min_val, double val) {
+    min_val = (val < min_val) ? val : min_val;
+    max_val = (val > max_val) ? val : max_val;
+  };
+  auto max_min_coord_first = [&](double &max_val, double &min_val, double val) {
+    max_val = (_amount_vert == 2) ? val : max_val;
+    min_val = (_amount_vert == 2) ? val : min_val;
+  };
   _size++;
   switch (_size) {
   case 1:
-    _max_coord_x = (val > _max_coord_x) ? val : _max_coord_x;
-    _min_coord_x = (val < _min_coord_x) ? val : _min_coord_x;
+    max_min_coord(_max_coord_x, _min_coord_x, val);
     _x = val;
     break;
   case 2:
-    _max_coord_y = (val > _max_coord_y) ? val : _max_coord_y;
-    _min_coord_y = (val < _min_coord_y) ? val : _min_coord_y;
+    max_min_coord(_max_coord_y, _min_coord_y, val);
     _y = val;
     break;
   case 3:
-    _max_coord_z = (val > _max_coord_z) ? val : _max_coord_z;
-    _min_coord_z = (val < _min_coord_z) ? val : _min_coord_z;
+    max_min_coord(_max_coord_z, _min_coord_z, val);
     _z = val;
     break;
   default:
     throw std::range_error("Vertex overflow!\n");
     break;
   }
+  max_min_coord_first(_max_coord_x, _min_coord_x, _x);
+  max_min_coord_first(_max_coord_y, _min_coord_y, _y);
+  max_min_coord_first(_max_coord_z, _min_coord_z, _z);
 }
 
 void SurfaceNumbers::PushBack(double val) {

@@ -73,6 +73,13 @@ void Scaler::Centering(std::vector<VertixCoordinates> &coordinates) {
   double delta_z =
       VertixCoordinates::GetMaxZ() / 2 + VertixCoordinates::GetMinZ() / 2;
 
+  VertixCoordinates::SetMaxX(VertixCoordinates::GetMaxX() - delta_x);
+  VertixCoordinates::SetMaxY(VertixCoordinates::GetMaxY() - delta_y);
+  VertixCoordinates::SetMaxZ(VertixCoordinates::GetMaxZ() - delta_z);
+  VertixCoordinates::SetMinX(VertixCoordinates::GetMinX() - delta_x);
+  VertixCoordinates::SetMinY(VertixCoordinates::GetMinY() - delta_y);
+  VertixCoordinates::SetMinZ(VertixCoordinates::GetMinZ() - delta_z);
+
   std::array<double, 3> delta = {delta_x, delta_y, delta_z};
   for (auto &vec : coordinates) {
     for (size_t i = 0; i < vec.Size(); i++) {
@@ -99,7 +106,9 @@ void Scaler::Rescale(std::vector<VertixCoordinates> &coordinates) {
           : VertixCoordinates::GetMinZ();
 
   std::array<double, 3> max_values = {max_x, max_y, max_z};
-  double max_val = *std::max_element(max_values.begin(), max_values.end());
+  double max_val = *std::max_element(
+      max_values.begin(), max_values.end(),
+      [&](double a, double b) { return std::abs(a) < std::abs(b); });
   unsigned int deg = (max_val > 0) ? 0 : 1;
   for (auto &vec : coordinates) {
     for (size_t i = 0; i < vec.Size(); i++) {

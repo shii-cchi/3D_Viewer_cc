@@ -7,9 +7,21 @@ void ViewerModel::ParseFile(std::string &path) {
   file.open(path);
   if (file.is_open()) {
     auto [vertices_coord, surfaces_num] = _parser.ParseFile(file);
+    CenteringRescale(vertices_coord);
     file.close();
-    _scaler.Centering(vertices_coord);
-    _scaler.Rescale(vertices_coord);
+    _vertices_coord = vertices_coord;
+    _surface_num = surfaces_num;
+  } else {
+    throw std::invalid_argument("Incorrect path of file!\n");
+  }
+};
+
+void ViewerModel::ParseFileNotCentered(std::string &path) {
+  std::ifstream file;
+  file.open(path);
+  if (file.is_open()) {
+    auto [vertices_coord, surfaces_num] = _parser.ParseFile(file);
+    file.close();
     _vertices_coord = vertices_coord;
     _surface_num = surfaces_num;
   } else {
