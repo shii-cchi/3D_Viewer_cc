@@ -8,6 +8,8 @@ void ViewerModel::ParseFile(std::string &path) {
   if (file.is_open()) {
     auto [vertices_coord, surfaces_num] = _parser.ParseFile(file);
     file.close();
+    _scaler.Centering(vertices_coord);
+    _scaler.Rescale(vertices_coord);
     _vertices_coord = vertices_coord;
     _surface_num = surfaces_num;
   } else {
