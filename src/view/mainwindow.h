@@ -7,6 +7,7 @@
 #include <QColorDialog>
 #include <QSettings>
 
+#include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -28,7 +29,7 @@ class MainWindow : public QMainWindow {
   void lineTypeChanged(int index);
   void sizeVerticesChanged(int index);
   void verticesTypeChanged(int index);
-  void colorChanged(int param, const QColor &color);
+  void colorChanged(ColorSettings::CurrentParam param, const QColor &color);
 
  private slots:
   void on_pushButton_file_clicked();
@@ -54,18 +55,17 @@ class MainWindow : public QMainWindow {
   unsigned int amount_surfaces;
   unsigned int amount_edges;
 
-  void setDefaultSettings();
+  void resetUI();
   QString getFileName(QString file_name);
-  bool checkFile();
+  void loadModelFromFile(const QString &file_name);
+  void handleModelLoaded();
+  bool isValidAndNotEmptyFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
 
   s21::ViewerController controller;
 
   QColorDialog colorDialog;
-  int currentParam;
-  QColor edges_color;
-  QColor vertices_color;
-  QColor background_color;
+  ColorSettings colorSettings;
 
   QSettings settings;
   void loadSettings();

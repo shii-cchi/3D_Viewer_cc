@@ -4,6 +4,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 
+#include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"
 
 class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
@@ -20,7 +21,7 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   void updateLineType(int index);
   void updateSizeVertices(int index);
   void updateVerticesType(int index);
-  void onColorChanged(int param, const QColor &color);
+  void onColorChanged(ColorSettings::CurrentParam param, const QColor &color);
 
  private:
   void initializeGL() override;
@@ -32,25 +33,28 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   unsigned int count_surfaces;
   bool data_initialized;
 
-  GLushort line_pattern;
-  enum projection_types {
-      Central,
-      Parallel,
-  };
-  projection_types projection_type;
+  struct RenderingSettings {
+    GLushort line_pattern;
+    
+    enum ProjectionType {
+        Central,
+        Parallel,
+    };
+    ProjectionType projection_type;
 
-  float width_edge;
-  float size_vertices;
-  enum vertices_types {
+    float width_edge;
+    float size_vertices;
+
+    enum VerticesType {
         Default,
         Circular,
         Square
     };
-  vertices_types vertices_type;
+    VerticesType vertices_type;
+  };
 
-  QColor edges_color;
-  QColor vertices_color;
-  QColor background_color;
+  RenderingSettings renderingSettings;
+  ColorSettings colorSettings;
 
   void setupProjection();
   void drawObjects();

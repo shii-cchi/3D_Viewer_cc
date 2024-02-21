@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
   connect(ui->pushButton_color_vertices, &QPushButton::clicked, this, &MainWindow::openColorDialogVertices);
   connect(ui->pushButton_color_back, &QPushButton::clicked, this, &MainWindow::openColorDialogBackground);
   connect(&colorDialog, &QColorDialog::colorSelected, this, &MainWindow::colorSelected);
-  connect(this, SIGNAL(colorChanged(int, const QColor)), ui->view_window, SLOT(onColorChanged(int, const QColor)));
+  connect(this, SIGNAL(colorChanged(ColorSettings::CurrentParam, const QColor)), ui->view_window, SLOT(onColorChanged(ColorSettings::CurrentParam, const QColor)));
 
   connect(this, SIGNAL(projectionTypeChanged(int)), ui->view_window, SLOT(updateProjectionType(int)));
   connect(this, SIGNAL(widthEdgeChanged(int)), ui->view_window, SLOT(updateWidthEdge(int)));
@@ -36,15 +36,15 @@ void MainWindow::saveSettings() {
     settings.setValue("size_vertices", ui->size_vertices->currentIndex());
     settings.setValue("vertices_type", ui->vertices_type->currentIndex());
 
-    settings.setValue("edges_color_red", edges_color.red());
-    settings.setValue("edges_color_green", edges_color.green());
-    settings.setValue("edges_color_blue", edges_color.blue());
-    settings.setValue("vertices_color_red", vertices_color.red());
-    settings.setValue("vertices_color_green", vertices_color.green());
-    settings.setValue("vertices_color_blue", vertices_color.blue());
-    settings.setValue("background_color_red", background_color.red());
-    settings.setValue("background_color_green", background_color.green());
-    settings.setValue("background_color_blue", background_color.blue());
+    settings.setValue("edges_color_red", colorSettings.edges_color.red());
+    settings.setValue("edges_color_green", colorSettings.edges_color.green());
+    settings.setValue("edges_color_blue", colorSettings.edges_color.blue());
+    settings.setValue("vertices_color_red", colorSettings.vertices_color.red());
+    settings.setValue("vertices_color_green", colorSettings.vertices_color.green());
+    settings.setValue("vertices_color_blue", colorSettings.vertices_color.blue());
+    settings.setValue("background_color_red", colorSettings.background_color.red());
+    settings.setValue("background_color_green", colorSettings.background_color.green());
+    settings.setValue("background_color_blue", colorSettings.background_color.blue());
 }
 
 void MainWindow::loadSettings() {
@@ -68,89 +68,70 @@ void MainWindow::loadSettings() {
     int edges_red = settings.value("edges_color_red", 0).toInt();
     int edges_green = settings.value("edges_color_green", 0).toInt();
     int edges_blue = settings.value("edges_color_blue", 0).toInt();
-    edges_color = QColor(edges_red, edges_green, edges_blue);
+    colorSettings.edges_color = QColor(edges_red, edges_green, edges_blue);
 
     int vertices_red = settings.value("vertices_color_red", 255).toInt();
     int vertices_green = settings.value("vertices_color_green", 0).toInt();
     int vertices_blue = settings.value("vertices_color_blue", 0).toInt();
-    vertices_color = QColor(vertices_red, vertices_green, vertices_blue);
+    colorSettings.vertices_color = QColor(vertices_red, vertices_green, vertices_blue);
 
     int background_red = settings.value("background_color_red", 255).toInt();
     int background_green = settings.value("background_color_green", 255).toInt();
     int background_blue = settings.value("background_color_blue", 255).toInt();
-    background_color = QColor(background_red, background_green, background_blue);
+    colorSettings.background_color = QColor(background_red, background_green, background_blue);
 
-    emit colorChanged(0, edges_color);
-    emit colorChanged(1, vertices_color);
-    emit colorChanged(2, background_color);
+    emit colorChanged(ColorSettings::EdgesColor, colorSettings.edges_color);
+    emit colorChanged(ColorSettings::VerticesColor, colorSettings.vertices_color);
+    emit colorChanged(ColorSettings::BackgroundColor, colorSettings.background_color);
 }
 
 void MainWindow::openColorDialogEdges() {
-  currentParam = 0;
+  colorSettings.current_param = ColorSettings::EdgesColor;
   colorDialog.show();
 }
 
 void MainWindow::openColorDialogVertices() {
-  currentParam = 1;
+  colorSettings.current_param = ColorSettings::VerticesColor;
   colorDialog.show();
 }
 
 void MainWindow::openColorDialogBackground() {
-  currentParam = 2;
+  colorSettings.current_param = ColorSettings::BackgroundColor;
   colorDialog.show();
 }
 
 void MainWindow::colorSelected(const QColor &color) {
-  switch (currentParam) {
-  case 0:
-      edges_color = color;
+  switch (colorSettings.current_param) {
+  case ColorSettings::EdgesColor:
+      colorSettings.edges_color = color;
       break;
-  case 1:
-      vertices_color = color;
+  case ColorSettings::VerticesColor:
+      colorSettings.vertices_color = color;
       break;
-  case 2:
-      background_color = color;
+  case ColorSettings::BackgroundColor:
+      colorSettings.background_color = color;
       break;
   }
 
-  emit colorChanged(currentParam, color);
+  emit colorChanged(colorSettings.current_param, color);
 }
 
 void MainWindow::on_pushButton_file_clicked() {
-  setDefaultSettings();
+  resetUI();
   controller.Clear();
 
   QString file_name = QFileDialog::getOpenFileName(
       this, tr("Open File"), "/home/", tr("Files (*.obj)"));
 
-  if (file_name != "") {
-    std::string file_name_string = file_name.toStdString();
-    controller.SetData(file_name_string);
-
-    ui->file_name->setText(getFileName(file_name));
-
-    vertices = controller.GetVetrixCoordinate();
-    surfaces = controller.GetSurfaceNum();
-    amount_surfaces = controller.GetAmountSurfaces();
-    amount_edges = controller.GetAmountEdges();
-
-    ui->count_vertices->setText(QString::number(vertices.size() - 1));
-    ui->count_edges->setText(QString::number(amount_edges));
-
-    if (vertices.size() - 1 != 0 && amount_surfaces != 0) {
-        ui->view_window->sendData(vertices, surfaces, amount_surfaces);
-        ui->view_window->update();
-    } else if (vertices.size() - 1 == 0 && amount_surfaces == 0) {
-      ui->error_file->setText("Файл пустой");
-    } else {
-      ui->error_file->setText("Недостаточно данных");
-    }
+  if (!file_name.isEmpty()) {
+    loadModelFromFile(file_name);
+    handleModelLoaded();
   } else {
     ui->error_file->setText("Откройте файл");
   }
 }
 
-void MainWindow::setDefaultSettings() {
+void MainWindow::resetUI() {
   ui->error_file->setText("");
   ui->error_xyz_scale->setText("");
   ui->file_name->setText("");
@@ -173,10 +154,36 @@ QString MainWindow::getFileName(QString file_name) {
   return file_name;
 }
 
+void MainWindow::loadModelFromFile(const QString &file_name) {
+    std::string file_name_string = file_name.toStdString();
+    controller.SetData(file_name_string);
+
+    ui->file_name->setText(getFileName(file_name));
+
+    vertices = controller.GetVetrixCoordinate();
+    surfaces = controller.GetSurfaceNum();
+    amount_surfaces = controller.GetAmountSurfaces();
+    amount_edges = controller.GetAmountEdges();
+
+    ui->count_vertices->setText(QString::number(vertices.size() - 1));
+    ui->count_edges->setText(QString::number(amount_edges));
+}
+
+void MainWindow::handleModelLoaded() {
+  if (vertices.size() - 1 != 0 && amount_surfaces != 0) {
+    ui->view_window->sendData(vertices, surfaces, amount_surfaces);
+    ui->view_window->update();
+  } else if (vertices.size() - 1 == 0 && amount_surfaces == 0) {
+    ui->error_file->setText("Файл пустой");
+  } else {
+    ui->error_file->setText("Недостаточно данных");
+  }
+}
+
 void MainWindow::on_pushButton_move_clicked() {
  ui->error_xyz_scale->setText("");
 
- if (checkFile()) {
+ if (isValidAndNotEmptyFile()) {
    bool x_err, y_err, z_err;
    double shift_x = ui->x_move->text().toDouble(&x_err);
    double shift_y = ui->y_move->text().toDouble(&y_err);
@@ -201,7 +208,7 @@ void MainWindow::on_pushButton_move_clicked() {
 void MainWindow::on_pushButton_rotate_clicked() {
  ui->error_xyz_scale->setText("");
 
- if (checkFile()) {
+ if (isValidAndNotEmptyFile()) {
    bool x_err, y_err, z_err;
    double degree_x = ui->x_rotate->text().toDouble(&x_err);
    double degree_y = ui->y_rotate->text().toDouble(&y_err);
@@ -225,7 +232,7 @@ void MainWindow::on_pushButton_rotate_clicked() {
 void MainWindow::on_pushButton_scale_clicked() {
  ui->error_xyz_scale->setText("");
 
- if (checkFile()) {
+ if (isValidAndNotEmptyFile()) {
    bool ratio_err;
    double ratio = ui->scale->text().toDouble(&ratio_err);
 
@@ -243,26 +250,14 @@ void MainWindow::on_pushButton_scale_clicked() {
  }
 }
 
-bool MainWindow::checkFile() {
- bool status = false;
-
- if (ui->file_name->text() != "" && vertices.size() - 1 != 0 &&
-     amount_surfaces != 0 && ui->error_file->text() == "") {
-   status = true;
- }
-
- return status;
+bool MainWindow::isValidAndNotEmptyFile() {
+    return !ui->file_name->text().isEmpty() && vertices.size() - 1 != 0 && amount_surfaces != 0 && ui->error_file->text().isEmpty();
 }
 
 bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
-  bool status = false;
-
-  if (fabs(degree_x) >= 0 && fabs(degree_x) <= 360 && fabs(degree_y) >= 0 &&
-      fabs(degree_y) <= 360 && fabs(degree_z) >= 0 && fabs(degree_z) <= 360) {
-    status = true;
-  }
-
-  return status;
+  return (fabs(degree_x) >= 0 && fabs(degree_x) <= 360 &&
+          fabs(degree_y) >= 0 && fabs(degree_y) <= 360 &&
+          fabs(degree_z) >= 0 && fabs(degree_z) <= 360);
 }
 
 void MainWindow::on_projection_type_currentIndexChanged(int index) {
