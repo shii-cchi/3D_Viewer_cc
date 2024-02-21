@@ -1,10 +1,10 @@
 #include "glview.h"
 
 GlView::GlView(QWidget *parent) 
-    : QOpenGLWidget(parent), 
-      data_initialized(false), 
+    : QOpenGLWidget(parent),
+      data_initialized(false),
       renderingSettings{0xFFFF, RenderingSettings::ProjectionType::Central, 1.0f, 1.0f, RenderingSettings::VerticesType::Default},
-      colorSettings({0, 0, 0}, {255, 0, 0}, {255, 255, 255})
+    colorSettings{ColorSettings::EdgesColor, {0, 0, 0}, {255, 0, 0}, {255, 255, 255}}
 {}
 
 void GlView::sendData(std::vector<s21::VertixCoordinates> vertices, std::vector<s21::SurfaceNumbers> surfaces, unsigned int amount_surfaces) {
