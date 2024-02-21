@@ -7,10 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   this->setWindowTitle("3D_Viewer");
 
-  //ui->pushButton_color_edges = findChild<QPushButton*>("pushButton_color_edges");
-  //ui->pushButton_color_vertices = findChild<QPushButton*>("pushButton_color_vertices");
-  //ui->pushButton_color_back = findChild<QPushButton*>("pushButton_color_back");
-
   connect(ui->pushButton_color_edges, &QPushButton::clicked, this, &MainWindow::openColorDialogEdges);
   connect(ui->pushButton_color_vertices, &QPushButton::clicked, this, &MainWindow::openColorDialogVertices);
   connect(ui->pushButton_color_back, &QPushButton::clicked, this, &MainWindow::openColorDialogBackground);
@@ -95,10 +91,6 @@ void MainWindow::on_pushButton_file_clicked() {
     surfaces = controller.GetSurfaceNum();
     amount_surfaces = controller.GetAmountSurfaces();
     amount_edges = controller.GetAmountEdges();
-
-    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._x);
-    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._y);
-    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._z);
 
     ui->count_vertices->setText(QString::number(vertices.size() - 1));
     ui->count_edges->setText(QString::number(amount_edges));
