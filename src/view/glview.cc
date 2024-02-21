@@ -57,9 +57,9 @@ void GlView::drawObjects() {
       glBegin(GL_LINE_LOOP);
       for (int j = 0; j < 3; ++j) {
         glColor3d(edges_color.redF(), edges_color.greenF(), edges_color.blueF());
-        glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,
-                   all_vertices[all_surfaces[i]._surface_numbers[j]]._y,
-                   all_vertices[all_surfaces[i]._surface_numbers[j]]._z);
+        glVertex3d(all_vertices[all_surfaces[i][j]][0],
+                   all_vertices[all_surfaces[i][j]][1],
+                   all_vertices[all_surfaces[i][j]][2]);
       }
       glEnd();
     }
@@ -76,9 +76,9 @@ void GlView::drawObjects() {
         glBegin(GL_POINTS);
         for (int j = 0; j < 3; ++j) {
             glColor3d(vertices_color.redF(), vertices_color.greenF(), vertices_color.blueF());
-            glVertex3d(all_vertices[all_surfaces[i]._surface_numbers[j]]._x,
-                   all_vertices[all_surfaces[i]._surface_numbers[j]]._y,
-                   all_vertices[all_surfaces[i]._surface_numbers[j]]._z);
+            glVertex3d(all_vertices[all_surfaces[i][j]][0],
+                   all_vertices[all_surfaces[i][j]][1],
+                   all_vertices[all_surfaces[i][j]][2]);
         }
         glEnd();
       }

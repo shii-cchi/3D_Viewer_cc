@@ -96,9 +96,9 @@ void MainWindow::on_pushButton_file_clicked() {
     amount_surfaces = controller.GetAmountSurfaces();
     amount_edges = controller.GetAmountEdges();
 
-   // printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._x);
-   // printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._y);
-  //  printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._z);
+    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._x);
+    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._y);
+    printf("%f\n", vertices[surfaces[0]._surface_numbers[0]]._z);
 
     ui->count_vertices->setText(QString::number(vertices.size() - 1));
     ui->count_edges->setText(QString::number(amount_edges));
