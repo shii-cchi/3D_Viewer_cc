@@ -7,7 +7,7 @@
 #include <QColorDialog>
 #include <QSettings>
 #include <QImage>
-#include <QMovie>
+#include <QImageWriter>
 
 #include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"

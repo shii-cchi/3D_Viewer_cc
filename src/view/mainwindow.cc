@@ -284,22 +284,17 @@ void MainWindow::on_pushButton_make_screencast_clicked() {
     if (!file_path.isEmpty()) {
       screencast_path += ".gif";
 
-      QImage image = ui->view_window->grabFramebuffer();
+      QImage image;
 
-      QMovie screencast;
-      screencast.setFileName(screencast_path);
-      screencast.setScaledSize(QSize(640, 480));
-      screencast.setSpeed(100);
+      QImageWriter writer(screencast_path);
+      writer.setFormat("gif");
+      writer.setQuality(100);
 
-      screencast.start(QMovie::WriteOnly);
 
       for (int i = 0; i < 50; ++i) {
-          frame = getCurrentFrameImage();
-          screencast.addFrame(frame);
+          image = ui->view_window->grabFramebuffer(); 
+          writer.write(image);
       }
-
-      screencast.stop();
-      screencast.save();
     }
   }
 }
