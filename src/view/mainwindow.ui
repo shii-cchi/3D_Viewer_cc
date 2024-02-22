@@ -806,12 +806,12 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_save_bmp">
+   <widget class="QPushButton" name="pushButton_save_image">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>610</x>
       <y>610</y>
-      <width>141</width>
+      <width>201</width>
       <height>25</height>
      </rect>
     </property>
@@ -822,34 +822,15 @@
      </font>
     </property>
     <property name="text">
-     <string>Сохранить в bmp</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_save_jpeg">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>610</y>
-      <width>141</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Сохранить в jpeg</string>
+     <string>Сохранить изображение</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_make_screencast">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>820</x>
       <y>610</y>
-      <width>161</width>
+      <width>201</width>
       <height>25</height>
      </rect>
     </property>

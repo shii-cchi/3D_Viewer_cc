@@ -37,8 +37,7 @@ class MainWindow : public QMainWindow {
   void on_pushButton_move_clicked();
   void on_pushButton_rotate_clicked();
   void on_pushButton_scale_clicked();
-  void on_pushButton_save_bmp_clicked();
-  void on_pushButton_save_jpeg_clicked();
+  void on_pushButton_save_image_clicked();
   void on_pushButton_make_screencast_clicked();
 
   void on_projection_type_currentIndexChanged(int index);

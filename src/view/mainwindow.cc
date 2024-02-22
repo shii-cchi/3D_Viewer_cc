@@ -259,24 +259,23 @@ bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
           fabs(degree_z) >= 0 && fabs(degree_z) <= 360);
 }
 
-void MainWindow::on_pushButton_save_bmp_clicked() {
+void MainWindow::on_pushButton_save_image_clicked() {
   if (isValidAndNotEmptyFile()) {
-    QString file_path = QFileDialog::getSaveFileName(this, nullptr, nullptr, "JPEG (*.jpeg);; BMP (*.bmp)");
+   QString selected_filter;
+   QString file_path = QFileDialog::getSaveFileName(this, nullptr, QString(), "JPEG (*.jpeg);; BMP (*.bmp)", &selected_filter,  QFileDialog::DontUseNativeDialog);
 
     if (!file_path.isEmpty()) {
+     if (selected_filter.contains("JPEG")) {
+        file_path += ".jpeg";
+     } else if (selected_filter.contains("BMP")){
+        file_path += ".bmp";
+     }
+
       QImage image = ui->view_window->grabFramebuffer();
       image.save(file_path, nullptr, 100);
     }
   }
 }
-
-
-void MainWindow::on_pushButton_save_jpeg_clicked() {
-  if (isValidAndNotEmptyFile()) {
-    
-  }
-}
-
 
 void MainWindow::on_pushButton_make_screencast_clicked() {
 
