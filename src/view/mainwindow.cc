@@ -281,7 +281,7 @@ void MainWindow::on_pushButton_make_screencast_clicked() {
   if (isValidAndNotEmptyFile()) {
     QString screencast_path = QFileDialog::getSaveFileName(this, nullptr, QString(), "GIF Files (*.gif)", nullptr,  QFileDialog::DontUseNativeDialog);
 
-    if (!file_path.isEmpty()) {
+    if (!screencast_path.isEmpty()) {
       screencast_path += ".gif";
 
       QImage image;
@@ -290,11 +290,21 @@ void MainWindow::on_pushButton_make_screencast_clicked() {
       writer.setFormat("gif");
       writer.setQuality(100);
 
+      int frameDelay = 100;
 
       for (int i = 0; i < 50; ++i) {
-          image = ui->view_window->grabFramebuffer(); 
-          writer.write(image);
+        QPixmap pixmap = QPixmap::fromImage(model_->grabFramebuffer());
+        QPixmap scaled_pix = pix.scaled(QSize(640, 480), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+        pixmap.toImage().save(QString("frame_%1.jpg").arg(i), "JPEG");
+
+        QThread::msleep(frameDelay);
+
+        QImage frame(jpegPath, "JPEG");
+        writer.write(frame);
       }
+
+      writer.end();
     }
   }
 }
