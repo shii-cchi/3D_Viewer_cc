@@ -280,3 +280,21 @@ void MainWindow::on_vertices_type_currentIndexChanged(int index) {
   emit verticesTypeChanged(index);
 }
 
+
+void MainWindow::on_pushButton_save_bmp_clicked()
+{
+
+}
+
+
+void MainWindow::on_pushButton_save_jpeg_clicked()
+{
+
+}
+
+
+void MainWindow::on_pushButton_make_screencast_clicked()
+{
+
+}
+
