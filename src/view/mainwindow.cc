@@ -14,11 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
   connect(&colorDialog, &QColorDialog::colorSelected, this, &MainWindow::colorSelected);
   connect(this, SIGNAL(colorChanged(ColorSettings::CurrentParam, const QColor)), ui->view_window, SLOT(onColorChanged(ColorSettings::CurrentParam, const QColor)));
 
-  connect(this, &MainWindow::projectionTypeChanged, ui->view_window, &ViewWindow::updateProjectionType);
-  connect(this, &MainWindow::widthEdgeChanged, ui->view_window, &ViewWindow::updateWidthEdge);
-  connect(this, &MainWindow::lineTypeChanged, ui->view_window, &ViewWindow::updateLineType);
-  connect(this, &MainWindow::sizeVerticesChanged, ui->view_window, &ViewWindow::updateSizeVertices);
-  connect(this, &MainWindow::verticesTypeChanged, ui->view_window, &ViewWindow::updateVerticesType);
+  connect(this, SIGNAL(projectionTypeChanged(int)), ui->view_window, SLOT(updateProjectionType(int)));
+  connect(this, SIGNAL(widthEdgeChanged(int)), ui->view_window, SLOT(updateWidthEdge(int)));
+  connect(this, SIGNAL(lineTypeChanged(int)), ui->view_window, SLOT(updateLineType(int)));
+  connect(this, SIGNAL(sizeVerticesChanged(int)), ui->view_window, SLOT(updateSizeVertices(int)));
+  connect(this, SIGNAL(verticesTypeChanged(int)), ui->view_window, SLOT(updateVerticesType(int)));
 
   loadSettings();
 }
