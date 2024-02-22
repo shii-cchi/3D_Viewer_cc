@@ -278,7 +278,30 @@ void MainWindow::on_pushButton_save_image_clicked() {
 }
 
 void MainWindow::on_pushButton_make_screencast_clicked() {
+  if (isValidAndNotEmptyFile()) {
+    QString screencast_path = QFileDialog::getSaveFileName(this, nullptr, QString(), "GIF Files (*.gif)", nullptr,  QFileDialog::DontUseNativeDialog);
 
+    if (!file_path.isEmpty()) {
+      screencast_path += ".gif";
+
+      QImage image = ui->view_window->grabFramebuffer();
+
+      QMovie screencast;
+      screencast.setFileName(screencast_path);
+      screencast.setScaledSize(QSize(640, 480));
+      screencast.setSpeed(100);
+
+      screencast.start(QMovie::WriteOnly);
+
+      for (int i = 0; i < 50; ++i) {
+          frame = getCurrentFrameImage();
+          screencast.addFrame(frame);
+      }
+
+      screencast.stop();
+      screencast.save();
+    }
+  }
 }
 
 void MainWindow::on_projection_type_currentIndexChanged(int index) {
