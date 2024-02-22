@@ -7,6 +7,7 @@
 #include <QColorDialog>
 #include <QSettings>
 #include <QImage>
+#include <QTimer>
 
 #include "QtGifImage/gifimage/qgifimage.h"
 

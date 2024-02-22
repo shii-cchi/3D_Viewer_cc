@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   this->setWindowTitle("3D_Viewer");
 
+  connect(&timer, &QTimer::timeout, this, &MainWindow::makeScreencast);
+
   connect(ui->pushButton_color_edges, &QPushButton::clicked, this, &MainWindow::openColorDialogEdges);
   connect(ui->pushButton_color_vertices, &QPushButton::clicked, this, &MainWindow::openColorDialogVertices);
   connect(ui->pushButton_color_back, &QPushButton::clicked, this, &MainWindow::openColorDialogBackground);
@@ -280,10 +282,8 @@ void MainWindow::on_pushButton_save_image_clicked() {
 void MainWindow::on_pushButton_make_screencast_clicked() {
   if (isValidAndNotEmptyFile()) {
     frames = 0;
-    gif->setDefaultDelay(100);
-
-    connect(timer_, SIGNAL(timeout()), this, SLOT(makeScreencast()));
-    timer->start(100);
+    gifImage.setDefaultDelay(100);
+    timer.start(100);
   }
 }
 
@@ -291,15 +291,15 @@ void MainWindow::makeScreencast() {
   QPixmap pixmap = QPixmap::fromImage(ui->view_window->grabFramebuffer());
   QPixmap scaled_pixmap = pixmap.scaled(QSize(640, 480), Qt::IgnoreAspectRatio,
                                   Qt::SmoothTransformation);
-  gif->addFrame(scaled_pixmap.toImage());
+  gifImage.addFrame(scaled_pixmap.toImage());
 
   if (frames == 50) {
-    timer->stop();
+    timer.stop();
     QString screencast_path = QFileDialog::getSaveFileName(
         this, nullptr, QString(), "GIF Image Files (*.gif)");
 
     if (!screencast_path.isEmpty()) {
-      gif->save(screencast_path);
+      gifImage.save(screencast_path);
     }
   }
   frames++;
