@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1072</width>
-    <height>677</height>
+    <height>705</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Выберите файл</string>
+     <string>Выбрать файл</string>
     </property>
    </widget>
    <widget class="QLabel" name="error_file">
@@ -59,7 +59,7 @@
       <x>19</x>
       <y>9</y>
       <width>561</width>
-      <height>591</height>
+      <height>631</height>
      </rect>
     </property>
    </widget>
@@ -744,7 +744,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Выберите цвет</string>
+       <string>Выбрать цвет</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_color_vertices">
@@ -763,7 +763,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Выберите цвет</string>
+       <string>Выбрать цвет</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_12">
@@ -801,10 +801,67 @@
        </font>
       </property>
       <property name="text">
-       <string>Выберите цвет</string>
+       <string>Выбрать цвет</string>
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_save_bmp">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>610</y>
+      <width>141</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Сохранить в bmp</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_save_jpeg">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>610</y>
+      <width>141</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Сохранить в jpeg</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_make_screencast">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>610</y>
+      <width>161</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Записать скринкаст</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
