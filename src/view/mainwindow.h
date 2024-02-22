@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QColorDialog>
 #include <QSettings>
+#include <QImage>
 
 #include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"
@@ -36,6 +37,9 @@ class MainWindow : public QMainWindow {
   void on_pushButton_move_clicked();
   void on_pushButton_rotate_clicked();
   void on_pushButton_scale_clicked();
+  void on_pushButton_save_bmp_clicked();
+  void on_pushButton_save_jpeg_clicked();
+  void on_pushButton_make_screencast_clicked();
 
   void on_projection_type_currentIndexChanged(int index);
   void on_width_edge_currentIndexChanged(int index);

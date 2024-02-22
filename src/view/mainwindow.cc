@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -260,6 +259,29 @@ bool MainWindow::isAngles(double degree_x, double degree_y, double degree_z) {
           fabs(degree_z) >= 0 && fabs(degree_z) <= 360);
 }
 
+void MainWindow::on_pushButton_save_bmp_clicked() {
+  if (isValidAndNotEmptyFile()) {
+    QString file_path = QFileDialog::getSaveFileName(this, nullptr, nullptr, "JPEG (*.jpeg);; BMP (*.bmp)");
+
+    if (!file_path.isEmpty()) {
+      QImage image = ui->view_window->grabFramebuffer();
+      image.save(file_path, nullptr, 100);
+    }
+  }
+}
+
+
+void MainWindow::on_pushButton_save_jpeg_clicked() {
+  if (isValidAndNotEmptyFile()) {
+    
+  }
+}
+
+
+void MainWindow::on_pushButton_make_screencast_clicked() {
+
+}
+
 void MainWindow::on_projection_type_currentIndexChanged(int index) {
   emit projectionTypeChanged(index);
 }
@@ -278,23 +300,5 @@ void MainWindow::on_size_vertices_currentIndexChanged(int index) {
 
 void MainWindow::on_vertices_type_currentIndexChanged(int index) {
   emit verticesTypeChanged(index);
-}
-
-
-void MainWindow::on_pushButton_save_bmp_clicked()
-{
-
-}
-
-
-void MainWindow::on_pushButton_save_jpeg_clicked()
-{
-
-}
-
-
-void MainWindow::on_pushButton_make_screencast_clicked()
-{
-
 }
 
