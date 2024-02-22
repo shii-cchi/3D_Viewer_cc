@@ -1,5 +1,5 @@
-CC = gcc
-CFLAGS = -std=c11 -Wall -Werror -Wextra
+CC = g++
+CFLAGS = -std=c++17 -Wall -Werror -Wextra
 GCOV_FLAG = -fprofile-arcs -ftest-coverage -fPIC -O0
 GCOV_FLAG_TEST = --coverage
 TEST_FLAG = -lcheck

@@ -296,9 +296,11 @@ void MainWindow::makeScreencast() {
   if (frames == 50) {
     timer.stop();
     QString screencast_path = QFileDialog::getSaveFileName(
-        this, nullptr, QString(), "GIF Image Files (*.gif)");
+        this, nullptr, QString(), "GIF Image Files (*.gif)", nullptr, QFileDialog::DontUseNativeDialog);
 
     if (!screencast_path.isEmpty()) {
+      screencast_path += ".gif";
+
       gifImage.save(screencast_path);
     }
   }

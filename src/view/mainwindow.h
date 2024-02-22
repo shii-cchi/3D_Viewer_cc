@@ -11,6 +11,10 @@
 
 #include "QtGifImage/gifimage/qgifimage.h"
 
+extern "C" {
+#include "QtGifImage/gifimage/qgifimage.h"
+}
+
 #include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"
 
