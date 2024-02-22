@@ -7,7 +7,8 @@
 #include <QColorDialog>
 #include <QSettings>
 #include <QImage>
-#include <QImageWriter>
+
+#include "QtGifImage/gifimage/qgifimage.h"
 
 #include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"
@@ -65,11 +66,16 @@ class MainWindow : public QMainWindow {
   void handleModelLoaded();
   bool isValidAndNotEmptyFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
+  void makeScreencast();
 
   s21::ViewerController controller;
 
   QColorDialog colorDialog;
   ColorSettings colorSettings;
+
+  QGifImage gifImage;
+  QTimer timer;
+  int frames;
 
   QSettings settings;
   void loadSettings();

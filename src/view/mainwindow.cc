@@ -279,34 +279,30 @@ void MainWindow::on_pushButton_save_image_clicked() {
 
 void MainWindow::on_pushButton_make_screencast_clicked() {
   if (isValidAndNotEmptyFile()) {
-    QString screencast_path = QFileDialog::getSaveFileName(this, nullptr, QString(), "GIF Files (*.gif)", nullptr,  QFileDialog::DontUseNativeDialog);
+    frames = 0;
+    gif->setDefaultDelay(100);
+
+    connect(timer_, SIGNAL(timeout()), this, SLOT(makeScreencast()));
+    timer->start(100);
+  }
+}
+
+void MainWindow::makeScreencast() {
+  QPixmap pixmap = QPixmap::fromImage(ui->view_window->grabFramebuffer());
+  QPixmap scaled_pixmap = pixmap.scaled(QSize(640, 480), Qt::IgnoreAspectRatio,
+                                  Qt::SmoothTransformation);
+  gif->addFrame(scaled_pixmap.toImage());
+
+  if (frames == 50) {
+    timer->stop();
+    QString screencast_path = QFileDialog::getSaveFileName(
+        this, nullptr, QString(), "GIF Image Files (*.gif)");
 
     if (!screencast_path.isEmpty()) {
-      screencast_path += ".gif";
-
-      QImage image;
-
-      QImageWriter writer(screencast_path);
-      writer.setFormat("gif");
-      writer.setQuality(100);
-
-      int frameDelay = 100;
-
-      for (int i = 0; i < 50; ++i) {
-        QPixmap pixmap = QPixmap::fromImage(model_->grabFramebuffer());
-        QPixmap scaled_pix = pix.scaled(QSize(640, 480), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-        pixmap.toImage().save(QString("frame_%1.jpg").arg(i), "JPEG");
-
-        QThread::msleep(frameDelay);
-
-        QImage frame(jpegPath, "JPEG");
-        writer.write(frame);
-      }
-
-      writer.end();
+      gif->save(screencast_path);
     }
   }
+  frames++;
 }
 
 void MainWindow::on_projection_type_currentIndexChanged(int index) {

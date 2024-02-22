@@ -27,6 +27,21 @@ add_executable(3D_Viewer
     viewer_model/transform.h
     viewer_model/viewer_model.cc
     viewer_model/viewer_model.h
+
+    QtGifImage/gifimage/qgifglobal.h
+    QtGifImage/gifimage/qgifimage.cpp
+    QtGifImage/gifimage/qgifimage.h
+    QtGifImage/gifimage/qgifimage_p.h
+    QtGifImage/giflib/dgif_lib.c
+    QtGifImage/giflib/egif_lib.c
+    QtGifImage/giflib/gif_err.c
+    QtGifImage/giflib/gif_font.c
+    QtGifImage/giflib/gif_hash.c
+    QtGifImage/giflib/gif_hash.h
+    QtGifImage/giflib/gif_lib.h
+    QtGifImage/giflib/gif_lib_private.h
+    QtGifImage/giflib/gifalloc.c
+    QtGifImage/giflib/quantize.c
 )
 
 target_link_libraries(3D_Viewer Qt6::Widgets Qt6::Core)
