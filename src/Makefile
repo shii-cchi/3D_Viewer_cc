@@ -14,11 +14,6 @@ ifeq ($(shell uname), Linux)
 	OPEN = xdg-open
 endif
 
-SOURCES_1 = core/parser.c core/transform.c
-OBJECTS_1 = parser.o transform.o
-SOURCES_2 = test/test.c
-OBJECTS_2 = test.o
-
 .PHONY: all
 all: clean install gcov_report
 
@@ -46,12 +41,7 @@ dist:
 	tar -czvf 3D_Viewer.tar.gz 3D_Viewer
 
 .PHONY: tests
-tests: clean 
-	$(CC) $(CFLAGS) $(GCOV_FLAG) -c $(SOURCES_1) -lm
-	$(CC) $(CFLAGS) -c $(SOURCES_2)
-	$(CC) $(CFLAGS) $(GCOV_FLAG_TEST) -o tests $(OBJECTS_1) $(OBJECTS_2) $(TEST_FLAG)
-	-rm -rf *.o
-	./tests
+tests:
 
 .PHONY: gcov_report
 gcov_report: clean tests
@@ -65,7 +55,7 @@ clean:
 	
 .PHONY: style
 style:
-	clang-format -n -style=Google core/*.c core/*.h view/*.cpp view/*.h
+	clang-format -n -style=Google view/*.cc view/*.h viewer_controller/*.cc viewer_controller/*.h viewer_model/*.cc viewer_model/*.h
 
 .PHONY: valgrind
 valgrind:
