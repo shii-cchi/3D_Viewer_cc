@@ -80,7 +80,6 @@ class MainWindow : public QMainWindow {
 
   QGifImage gifImage;
   QTimer timer;
-  int frames;
 
   QSettings settings;
   void loadSettings();

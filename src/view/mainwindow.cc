@@ -281,30 +281,27 @@ void MainWindow::on_pushButton_save_image_clicked() {
 
 void MainWindow::on_pushButton_make_screencast_clicked() {
   if (isValidAndNotEmptyFile()) {
-    frames = 0;
     gifImage.setDefaultDelay(100);
     timer.start(100);
   }
 }
 
 void MainWindow::makeScreencast() {
-  QPixmap pixmap = QPixmap::fromImage(ui->view_window->grabFramebuffer());
-  QPixmap scaled_pixmap = pixmap.scaled(QSize(640, 480), Qt::IgnoreAspectRatio,
-                                  Qt::SmoothTransformation);
-  gifImage.addFrame(scaled_pixmap.toImage());
-
-  if (frames == 50) {
-    timer.stop();
-    QString screencast_path = QFileDialog::getSaveFileName(
-        this, nullptr, QString(), "GIF Image Files (*.gif)", nullptr, QFileDialog::DontUseNativeDialog);
-
-    if (!screencast_path.isEmpty()) {
-      screencast_path += ".gif";
-
-      gifImage.save(screencast_path);
-    }
+  if (gifImage.frameCount() < 50) {
+    QImage frame = ui->view_window->grabFramebuffer();
+    gifImage.addFrame(frame.scaled(640, 480));
+    return;
   }
-  frames++;
+
+  timer.stop();
+  QString screencast_path = QFileDialog::getSaveFileName(
+      this, nullptr, QString(), "GIF Image Files (*.gif)", nullptr, QFileDialog::DontUseNativeDialog);
+
+  if (!screencast_path.isEmpty()) {
+    screencast_path += ".gif";
+
+    gifImage.save(screencast_path);
+  }
 }
 
 void MainWindow::on_projection_type_currentIndexChanged(int index) {
