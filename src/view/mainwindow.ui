@@ -861,7 +861,7 @@
   <customwidget>
    <class>GlView</class>
    <extends>QWidget</extends>
-   <header>../../../src/view/glview.h</header>
+   <header>../../../../src/view/glview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

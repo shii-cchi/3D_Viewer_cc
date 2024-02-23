@@ -1,12 +1,10 @@
 #ifndef SRC_VIEW_MAINWINDOW_H
 #define SRC_VIEW_MAINWINDOW_H
 
-#include <QCloseEvent>
 #include <QFileDialog>
 #include <QMainWindow>
 #include <QColorDialog>
 #include <QSettings>
-#include <QImage>
 #include <QTimer>
 
 #include "QtGifImage/gifimage/qgifimage.h"

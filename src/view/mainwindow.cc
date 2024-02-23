@@ -281,11 +281,12 @@ void MainWindow::on_pushButton_save_image_clicked() {
 }
 
 void MainWindow::on_pushButton_make_screencast_clicked() {
-  if (isValidAndNotEmptyFile()) {
+  if (isValidAndNotEmptyFile() && ui->pushButton_make_screencast->text() == "Записать скринкаст") {
+    ui->pushButton_make_screencast->setText("Идет запись");
     gifImage = new QGifImage;
 
     gifImage->setDefaultDelay(100);
-    timer->start(100);
+    timer->start(300);
   }
 }
 
@@ -297,6 +298,7 @@ void MainWindow::makeScreencast() {
   }
 
   timer->stop();
+  ui->pushButton_make_screencast->setText("Записать скринкаст");
   QString screencast_path = QFileDialog::getSaveFileName(
       this, nullptr, QString(), "GIF Image Files (*.gif)", nullptr, QFileDialog::DontUseNativeDialog);
 
