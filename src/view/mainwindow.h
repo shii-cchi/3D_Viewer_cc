@@ -78,8 +78,8 @@ class MainWindow : public QMainWindow {
   QColorDialog colorDialog;
   ColorSettings colorSettings;
 
-  QGifImage gifImage;
-  QTimer timer;
+  QGifImage *gifImage;
+  QTimer *timer;
 
   QSettings settings;
   void loadSettings();
