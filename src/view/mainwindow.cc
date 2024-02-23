@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(new Ui::MainWindow), timer(new QTimer) {
   ui->setupUi(this);
   this->setWindowTitle("3D_Viewer");
 
@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() { 
   saveSettings();
+  delete timer;
   delete ui; 
 }
 
@@ -282,7 +283,6 @@ void MainWindow::on_pushButton_save_image_clicked() {
 void MainWindow::on_pushButton_make_screencast_clicked() {
   if (isValidAndNotEmptyFile()) {
     gifImage = new QGifImage;
-    timer = new QTimer(this);
 
     gifImage->setDefaultDelay(100);
     timer->start(100);
@@ -305,7 +305,6 @@ void MainWindow::makeScreencast() {
 
     gifImage->save(screencast_path);
 
-    delete timer;
     delete gifImage;
   }
 }

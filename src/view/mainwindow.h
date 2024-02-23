@@ -10,11 +10,6 @@
 #include <QTimer>
 
 #include "QtGifImage/gifimage/qgifimage.h"
-
-extern "C" {
-#include "QtGifImage/gifimage/qgifimage.h"
-}
-
 #include "colorsettings.h"
 #include "../viewer_controller/viewer_controller.h"
 
@@ -58,6 +53,8 @@ class MainWindow : public QMainWindow {
   void openColorDialogBackground();
   void colorSelected(const QColor &color);
 
+  void makeScreencast();
+
   private:
   Ui::MainWindow *ui;
   std::vector<s21::VertixCoordinates> vertices;
@@ -71,7 +68,6 @@ class MainWindow : public QMainWindow {
   void handleModelLoaded();
   bool isValidAndNotEmptyFile();
   bool isAngles(double degree_x, double degree_y, double degree_z);
-  void makeScreencast();
 
   s21::ViewerController controller;
 
