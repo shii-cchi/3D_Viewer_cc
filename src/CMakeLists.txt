@@ -15,12 +15,12 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 find_package(Qt6 COMPONENTS Charts REQUIRED)
 
 add_executable(3D_Viewer
-    view/main.cc
-    view/mainwindow.cc
-    view/mainwindow.h
-    view/mainwindow.ui
-    view/glview.cc
-    view/glview.h
+    viewer_view/main.cc
+    viewer_view/mainwindow.cc
+    viewer_view/mainwindow.h
+    viewer_view/mainwindow.ui
+    viewer_view/glview.cc
+    viewer_view/glview.h
     viewer_controller/viewer_controller.cc
     viewer_controller/viewer_controller.h
     viewer_model/parser.cc
@@ -30,20 +30,20 @@ add_executable(3D_Viewer
     viewer_model/viewer_model.cc
     viewer_model/viewer_model.h
 
-    view/QtGifImage/gifimage/qgifglobal.h
-    view/QtGifImage/gifimage/qgifimage.cpp
-    view/QtGifImage/gifimage/qgifimage.h
-    view/QtGifImage/gifimage/qgifimage_p.h
-    view/QtGifImage/giflib/dgif_lib.c
-    view/QtGifImage/giflib/egif_lib.c
-    view/QtGifImage/giflib/gif_err.c
-    view/QtGifImage/giflib/gif_font.c
-    view/QtGifImage/giflib/gif_hash.c
-    view/QtGifImage/giflib/gif_hash.h
-    view/QtGifImage/giflib/gif_lib.h
-    view/QtGifImage/giflib/gif_lib_private.h
-    view/QtGifImage/giflib/gifalloc.c
-    view/QtGifImage/giflib/quantize.c
+    viewer_view/QtGifImage/gifimage/qgifglobal.h
+    viewer_view/QtGifImage/gifimage/qgifimage.cpp
+    viewer_view/QtGifImage/gifimage/qgifimage.h
+    viewer_view/QtGifImage/gifimage/qgifimage_p.h
+    viewer_view/QtGifImage/giflib/dgif_lib.c
+    viewer_view/QtGifImage/giflib/egif_lib.c
+    viewer_view/QtGifImage/giflib/gif_err.c
+    viewer_view/QtGifImage/giflib/gif_font.c
+    viewer_view/QtGifImage/giflib/gif_hash.c
+    viewer_view/QtGifImage/giflib/gif_hash.h
+    viewer_view/QtGifImage/giflib/gif_lib.h
+    viewer_view/QtGifImage/giflib/gif_lib_private.h
+    viewer_view/QtGifImage/giflib/gifalloc.c
+    viewer_view/QtGifImage/giflib/quantize.c
 )
 
 target_link_libraries(3D_Viewer Qt6::Widgets Qt6::Core)

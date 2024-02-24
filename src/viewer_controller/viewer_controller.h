@@ -13,9 +13,6 @@ public:
   virtual void ExecuteX() = 0;
   virtual void ExecuteY() = 0;
   virtual void ExecuteZ() = 0;
-  virtual void UnExecuteX() = 0;
-  virtual void UnExecuteY() = 0;
-  virtual void UnExecuteZ() = 0;
 
   void SetModel(ViewerModel *model) { _model = model; }
 
@@ -30,9 +27,6 @@ public:
   void ExecuteX() override { this->_model->RotateX(_rad); }
   void ExecuteY() override { this->_model->RotateY(_rad); }
   void ExecuteZ() override { this->_model->RotateZ(_rad); }
-  void UnExecuteX() override { this->_model->RotateX(-_rad); }
-  void UnExecuteY() override { this->_model->RotateY(-_rad); }
-  void UnExecuteZ() override { this->_model->RotateZ(-_rad); }
 
 private:
   double _rad;
@@ -45,9 +39,6 @@ public:
   void ExecuteX() override { this->_model->TranslateX(_shift); }
   void ExecuteY() override { this->_model->TranslateY(_shift); }
   void ExecuteZ() override { this->_model->TranslateZ(_shift); }
-  void UnExecuteX() override { this->_model->TranslateX(_shift); }
-  void UnExecuteY() override { this->_model->TranslateY(_shift); }
-  void UnExecuteZ() override { this->_model->TranslateZ(_shift); }
 
 private:
   double _shift;
@@ -60,9 +51,6 @@ public:
   void ExecuteX() override { this->_model->ScaleX(_scale_factor); }
   void ExecuteY() override { this->_model->ScaleY(_scale_factor); }
   void ExecuteZ() override { this->_model->ScaleZ(_scale_factor); }
-  void UnExecuteX() override { this->_model->ScaleX(1 / _scale_factor); }
-  void UnExecuteY() override { this->_model->ScaleY(1 / _scale_factor); }
-  void UnExecuteZ() override { this->_model->ScaleZ(1 / _scale_factor); }
 
 private:
   double _scale_factor;
@@ -73,19 +61,12 @@ public:
   void RotateForwardX(double rad);
   void RotateForwardY(double rad);
   void RotateForwardZ(double rad);
-  void RotateBackX(double rad);
-  void RotateBackY(double rad);
-  void RotateBackZ(double rad);
 
   void TranslateForwardX(double val);
   void TranslateForwardY(double val);
   void TranslateForwardZ(double val);
-  void TranslateBackX(double val);
-  void TranslateBackY(double val);
-  void TranslateBackZ(double val);
 
   void ScaleForward(double val);
-  void ScaleBack(double val);
 
   void Centering() { _model.Centering(); }
   void Rescale() { _model.Rescale(); }

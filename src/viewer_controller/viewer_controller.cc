@@ -35,24 +35,6 @@ void ViewerController::RotateForwardZ(double val) {
   delete _transform;
 }
 
-void ViewerController::RotateBackX(double val) {
-  SetRotate(val);
-  _transform->UnExecuteX();
-  delete _transform;
-}
-
-void ViewerController::RotateBackY(double val) {
-  SetRotate(val);
-  _transform->UnExecuteY();
-  delete _transform;
-}
-
-void ViewerController::RotateBackZ(double val) {
-  SetRotate(val);
-  _transform->UnExecuteZ();
-  delete _transform;
-}
-
 void ViewerController::TranslateForwardX(double val) {
   SetTranslate(val);
   _transform->ExecuteX();
@@ -71,37 +53,11 @@ void ViewerController::TranslateForwardZ(double val) {
   delete _transform;
 }
 
-void ViewerController::TranslateBackX(double val) {
-  SetTranslate(val);
-  _transform->UnExecuteX();
-  delete _transform;
-}
-
-void ViewerController::TranslateBackY(double val) {
-  SetTranslate(val);
-  _transform->UnExecuteY();
-  delete _transform;
-}
-
-void ViewerController::TranslateBackZ(double val) {
-  SetTranslate(val);
-  _transform->UnExecuteZ();
-  delete _transform;
-}
-
 void ViewerController::ScaleForward(double val) {
   SetScale(val);
   _transform->ExecuteX();
   _transform->ExecuteY();
   _transform->ExecuteZ();
-  delete _transform;
-}
-
-void ViewerController::ScaleBack(double val) {
-  SetScale(val);
-  _transform->UnExecuteX();
-  _transform->UnExecuteY();
-  _transform->UnExecuteZ();
   delete _transform;
 }
 
