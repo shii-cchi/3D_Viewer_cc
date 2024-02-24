@@ -9,7 +9,7 @@
 
 class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
-public:
+ public:
   explicit GlView(QWidget *parent = nullptr);
 
   void sendData(std::vector<s21::VertixCoordinates> all_vertices,
@@ -17,7 +17,7 @@ public:
                 unsigned int amount_surfaces);
   void setupOpenGLState();
 
-public slots:
+ public slots:
   void updateProjectionType(int index);
   void updateWidthEdge(int index);
   void updateLineType(int index);
@@ -25,7 +25,7 @@ public slots:
   void updateVerticesType(int index);
   void onColorChanged(ColorSettings::CurrentParam param, const QColor &color);
 
-private:
+ private:
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void paintGL() override;
@@ -58,4 +58,4 @@ private:
   void drawObjects();
 };
 
-#endif // SRC_VIEW_GLVIEW_H
+#endif  // SRC_VIEW_GLVIEW_H

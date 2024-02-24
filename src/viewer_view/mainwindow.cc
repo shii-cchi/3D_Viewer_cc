@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -122,15 +123,15 @@ void MainWindow::openColorDialogBackground() {
 
 void MainWindow::colorSelected(const QColor &color) {
   switch (colorSettings.current_param) {
-  case ColorSettings::EdgesColor:
-    colorSettings.edges_color = color;
-    break;
-  case ColorSettings::VerticesColor:
-    colorSettings.vertices_color = color;
-    break;
-  case ColorSettings::BackgroundColor:
-    colorSettings.background_color = color;
-    break;
+    case ColorSettings::EdgesColor:
+      colorSettings.edges_color = color;
+      break;
+    case ColorSettings::VerticesColor:
+      colorSettings.vertices_color = color;
+      break;
+    case ColorSettings::BackgroundColor:
+      colorSettings.background_color = color;
+      break;
   }
 
   emit colorChanged(colorSettings.current_param, color);

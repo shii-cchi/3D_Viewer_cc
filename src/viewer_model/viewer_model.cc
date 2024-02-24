@@ -83,4 +83,4 @@ void ViewerModel::ScaleZ(double val) {
   _transformer.UseStrategyZ(_vertices_coord);
 }
 
-} // namespace s21
+}  // namespace s21

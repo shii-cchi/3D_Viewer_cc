@@ -9,14 +9,14 @@
 namespace s21 {
 
 class DataFromFile {
-public:
+ public:
   virtual void PushBack(double val) = 0;
   virtual size_t Size() const = 0;
   virtual ~DataFromFile() = default;
 };
 
 class VertixCoordinates : public DataFromFile {
-public:
+ public:
   VertixCoordinates() : _x(0), _y(0), _z(0), _size(0) { _amount_vert++; }
   ~VertixCoordinates() override = default;
 
@@ -45,7 +45,7 @@ public:
     _min_coord_z = 0;
   }
 
-private:
+ private:
   static inline double _max_coord_x{};
   static inline double _max_coord_y{};
   static inline double _max_coord_z{};
@@ -58,7 +58,7 @@ private:
 };
 
 class SurfaceNumbers : public DataFromFile {
-public:
+ public:
   SurfaceNumbers() { _amount_surfaces++; }
   ~SurfaceNumbers() override = default;
 
@@ -73,7 +73,7 @@ public:
   static auto GetAmountEdges() { return _all_edges.size(); }
   size_t Size() const override { return _surface_numbers.size(); }
 
-private:
+ private:
   static inline unsigned int _amount_surfaces{};
   static inline std::set<std::set<unsigned int>> _all_edges;
   std::vector<unsigned int> _surface_numbers;
@@ -92,7 +92,7 @@ struct CreateSurface : public CreateDataStructure {
 };
 
 class GeometryData final {
-public:
+ public:
   // Начинается с идекса 1
   GeometryData() {
     VertixCoordinates vertix;
@@ -104,16 +104,16 @@ public:
   void PushBack(VertixCoordinates *coord) { _data.first.push_back(*coord); };
   void PushBack(SurfaceNumbers *num) { _data.second.push_back(*num); };
 
-private:
+ private:
   std::pair<std::vector<VertixCoordinates>, std::vector<SurfaceNumbers>> _data;
 };
 
 class Parser final {
-public:
+ public:
   std::pair<std::vector<VertixCoordinates>, std::vector<SurfaceNumbers>>
   ParseFile(std::ifstream &file);
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_MODEL_PARSER_H
+#endif  // CPP4_3DVIEWER_MODEL_PARSER_H

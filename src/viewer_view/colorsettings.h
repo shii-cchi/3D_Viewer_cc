@@ -12,4 +12,4 @@ struct ColorSettings {
   QColor background_color;
 };
 
-#endif // SRC_VIEW_COLORSETTINGS_H
+#endif  // SRC_VIEW_COLORSETTINGS_H

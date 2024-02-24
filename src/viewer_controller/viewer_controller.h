@@ -7,7 +7,7 @@
 namespace s21 {
 
 class Transform {
-public:
+ public:
   virtual ~Transform() {}
 
   virtual void ExecuteX() = 0;
@@ -16,48 +16,48 @@ public:
 
   void SetModel(ViewerModel *model) { _model = model; }
 
-protected:
+ protected:
   ViewerModel *_model;
 };
 
 class Rotate final : public Transform {
-public:
+ public:
   Rotate(double grad) { _rad = grad / 180 * M_PI; };
 
   void ExecuteX() override { this->_model->RotateX(_rad); }
   void ExecuteY() override { this->_model->RotateY(_rad); }
   void ExecuteZ() override { this->_model->RotateZ(_rad); }
 
-private:
+ private:
   double _rad;
 };
 
 class Translate final : public Transform {
-public:
+ public:
   Translate(double val) : _shift(val) {}
 
   void ExecuteX() override { this->_model->TranslateX(_shift); }
   void ExecuteY() override { this->_model->TranslateY(_shift); }
   void ExecuteZ() override { this->_model->TranslateZ(_shift); }
 
-private:
+ private:
   double _shift;
 };
 
 class Scale final : public Transform {
-public:
+ public:
   Scale(double val) : _scale_factor(val) {}
 
   void ExecuteX() override { this->_model->ScaleX(_scale_factor); }
   void ExecuteY() override { this->_model->ScaleY(_scale_factor); }
   void ExecuteZ() override { this->_model->ScaleZ(_scale_factor); }
 
-private:
+ private:
   double _scale_factor;
 };
 
 class ViewerController final {
-public:
+ public:
   void RotateForwardX(double rad);
   void RotateForwardY(double rad);
   void RotateForwardZ(double rad);
@@ -82,7 +82,7 @@ public:
   auto GetAmountSurfaces() const { return _model.GetAmountSurfaces(); }
   auto GetAmountEdges() const { return _model.GetAmountEdges(); }
 
-private:
+ private:
   ViewerModel _model;
   Transform *_transform;
 
@@ -91,6 +91,6 @@ private:
   void SetScale(double val);
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_CONTROLLER_CONTROLLER_H
+#endif  // CPP4_3DVIEWER_CONTROLLER_CONTROLLER_H

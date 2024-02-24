@@ -10,19 +10,19 @@
 namespace s21 {
 
 class TransformStrategy {
-public:
+ public:
   TransformStrategy(double val) : _val(val) {}
   virtual ~TransformStrategy() {}
   virtual void TransformationX(std::vector<VertixCoordinates> &vec) = 0;
   virtual void TransformationY(std::vector<VertixCoordinates> &vec) = 0;
   virtual void TransformationZ(std::vector<VertixCoordinates> &vec) = 0;
 
-protected:
+ protected:
   double _val;
 };
 
 class RotateStrategy final : public TransformStrategy {
-public:
+ public:
   RotateStrategy(double val) : TransformStrategy(val) {}
 
   void TransformationX(std::vector<VertixCoordinates> &vec) override;
@@ -31,7 +31,7 @@ public:
 };
 
 class TranslateStrategy final : public TransformStrategy {
-public:
+ public:
   TranslateStrategy(double val) : TransformStrategy(val) {}
 
   void TransformationY(std::vector<VertixCoordinates> &vec) override;
@@ -40,7 +40,7 @@ public:
 };
 
 class ScaleStrategy final : public TransformStrategy {
-public:
+ public:
   ScaleStrategy(double val) : TransformStrategy(val) {}
 
   void TransformationX(std::vector<VertixCoordinates> &vec) override;
@@ -49,7 +49,7 @@ public:
 };
 
 class Transformer {
-public:
+ public:
   void SetStrategy(TransformStrategy *strategy) { _strategy = strategy; }
   void UseStrategyX(std::vector<VertixCoordinates> &vec) {
     _strategy->TransformationX(vec);
@@ -63,19 +63,19 @@ public:
     _strategy->TransformationZ(vec);
   };
 
-private:
+ private:
   TransformStrategy *_strategy;
 };
 
 class Scaler {
-public:
+ public:
   void Centering(std::vector<VertixCoordinates> &coordinates);
   void Rescale(std::vector<VertixCoordinates> &coordinates);
 
-private:
+ private:
   mutable std::vector<VertixCoordinates> _centered_coord;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_MODEL_TRANSFORM_H
+#endif  // CPP4_3DVIEWER_MODEL_TRANSFORM_H

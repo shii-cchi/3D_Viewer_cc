@@ -3,7 +3,6 @@
 namespace s21 {
 
 void RotateStrategy::TransformationX(std::vector<VertixCoordinates> &vec) {
-
   for (auto &coord : vec) {
     double tmp_y = coord[1];
     coord[1] = coord[1] * cos(_val) - coord[2] * sin(_val);
@@ -117,4 +116,4 @@ void Scaler::Rescale(std::vector<VertixCoordinates> &coordinates) {
   }
 }
 
-} // namespace s21
+}  // namespace s21

@@ -1,7 +1,8 @@
 #include "glview.h"
 
 GlView::GlView(QWidget *parent)
-    : QOpenGLWidget(parent), data_initialized(false),
+    : QOpenGLWidget(parent),
+      data_initialized(false),
       renderingSettings{0xFFFF, RenderingSettings::ProjectionType::Central,
                         1.0f, 1.0f, RenderingSettings::VerticesType::Default},
       colorSettings{
@@ -109,14 +110,14 @@ void GlView::drawObjects() {
 
 void GlView::updateProjectionType(int index) {
   switch (index) {
-  case 0:
-    renderingSettings.projection_type =
-        RenderingSettings::ProjectionType::Central;
-    break;
-  case 1:
-    renderingSettings.projection_type =
-        RenderingSettings::ProjectionType::Parallel;
-    break;
+    case 0:
+      renderingSettings.projection_type =
+          RenderingSettings::ProjectionType::Central;
+      break;
+    case 1:
+      renderingSettings.projection_type =
+          RenderingSettings::ProjectionType::Parallel;
+      break;
   }
 
   update();
@@ -124,21 +125,21 @@ void GlView::updateProjectionType(int index) {
 
 void GlView::updateWidthEdge(int index) {
   switch (index) {
-  case 0:
-    renderingSettings.width_edge = 1;
-    break;
-  case 1:
-    renderingSettings.width_edge = 2;
-    break;
-  case 2:
-    renderingSettings.width_edge = 3;
-    break;
-  case 3:
-    renderingSettings.width_edge = 4;
-    break;
-  case 4:
-    renderingSettings.width_edge = 5;
-    break;
+    case 0:
+      renderingSettings.width_edge = 1;
+      break;
+    case 1:
+      renderingSettings.width_edge = 2;
+      break;
+    case 2:
+      renderingSettings.width_edge = 3;
+      break;
+    case 3:
+      renderingSettings.width_edge = 4;
+      break;
+    case 4:
+      renderingSettings.width_edge = 5;
+      break;
   }
 
   update();
@@ -146,12 +147,12 @@ void GlView::updateWidthEdge(int index) {
 
 void GlView::updateLineType(int index) {
   switch (index) {
-  case 0:
-    renderingSettings.line_pattern = 0xFFFF;
-    break;
-  case 1:
-    renderingSettings.line_pattern = 0xF0F0;
-    break;
+    case 0:
+      renderingSettings.line_pattern = 0xFFFF;
+      break;
+    case 1:
+      renderingSettings.line_pattern = 0xF0F0;
+      break;
   }
 
   update();
@@ -159,21 +160,21 @@ void GlView::updateLineType(int index) {
 
 void GlView::updateSizeVertices(int index) {
   switch (index) {
-  case 0:
-    renderingSettings.size_vertices = 1;
-    break;
-  case 1:
-    renderingSettings.size_vertices = 2;
-    break;
-  case 2:
-    renderingSettings.size_vertices = 3;
-    break;
-  case 3:
-    renderingSettings.size_vertices = 4;
-    break;
-  case 4:
-    renderingSettings.size_vertices = 5;
-    break;
+    case 0:
+      renderingSettings.size_vertices = 1;
+      break;
+    case 1:
+      renderingSettings.size_vertices = 2;
+      break;
+    case 2:
+      renderingSettings.size_vertices = 3;
+      break;
+    case 3:
+      renderingSettings.size_vertices = 4;
+      break;
+    case 4:
+      renderingSettings.size_vertices = 5;
+      break;
   }
 
   update();
@@ -181,15 +182,17 @@ void GlView::updateSizeVertices(int index) {
 
 void GlView::updateVerticesType(int index) {
   switch (index) {
-  case 0:
-    renderingSettings.vertices_type = RenderingSettings::VerticesType::Default;
-    break;
-  case 1:
-    renderingSettings.vertices_type = RenderingSettings::VerticesType::Circular;
-    break;
-  case 2:
-    renderingSettings.vertices_type = RenderingSettings::VerticesType::Square;
-    break;
+    case 0:
+      renderingSettings.vertices_type =
+          RenderingSettings::VerticesType::Default;
+      break;
+    case 1:
+      renderingSettings.vertices_type =
+          RenderingSettings::VerticesType::Circular;
+      break;
+    case 2:
+      renderingSettings.vertices_type = RenderingSettings::VerticesType::Square;
+      break;
   }
 
   update();
@@ -198,15 +201,15 @@ void GlView::updateVerticesType(int index) {
 void GlView::onColorChanged(ColorSettings::CurrentParam param,
                             const QColor &color) {
   switch (param) {
-  case ColorSettings::EdgesColor:
-    colorSettings.edges_color = color;
-    break;
-  case ColorSettings::VerticesColor:
-    colorSettings.vertices_color = color;
-    break;
-  case ColorSettings::BackgroundColor:
-    colorSettings.background_color = color;
-    break;
+    case ColorSettings::EdgesColor:
+      colorSettings.edges_color = color;
+      break;
+    case ColorSettings::VerticesColor:
+      colorSettings.vertices_color = color;
+      break;
+    case ColorSettings::BackgroundColor:
+      colorSettings.background_color = color;
+      break;
   }
 
   update();

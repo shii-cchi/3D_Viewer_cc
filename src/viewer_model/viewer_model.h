@@ -10,7 +10,7 @@
 namespace s21 {
 
 class ViewerModel final {
-public:
+ public:
   auto GetVertices() const { return _vertices_coord; }
   auto GetSurfaces() const { return _surface_num; }
   auto GetAmountSurfaces() const { return SurfaceNumbers::GetAmountSurfaces(); }
@@ -46,7 +46,7 @@ public:
     _surface_num.clear();
   };
 
-private:
+ private:
   std::vector<VertixCoordinates> _vertices_coord;
   std::vector<SurfaceNumbers> _surface_num;
   unsigned int _amount_surfaces;
@@ -57,6 +57,6 @@ private:
   Scaler _scaler;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_MODEL_MODEL_H
+#endif  // CPP4_3DVIEWER_MODEL_MODEL_H

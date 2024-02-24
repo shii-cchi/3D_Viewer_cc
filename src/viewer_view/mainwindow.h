@@ -20,11 +20,11 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
-public:
+ public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
-signals:
+ signals:
   void projectionTypeChanged(int index);
   void widthEdgeChanged(int index);
   void lineTypeChanged(int index);
@@ -32,7 +32,7 @@ signals:
   void verticesTypeChanged(int index);
   void colorChanged(ColorSettings::CurrentParam param, const QColor &color);
 
-private slots:
+ private slots:
   void on_pushButton_file_clicked();
   void on_pushButton_move_clicked();
   void on_pushButton_rotate_clicked();
@@ -53,7 +53,7 @@ private slots:
 
   void makeScreencast();
 
-private:
+ private:
   Ui::MainWindow *ui;
   std::vector<s21::VertixCoordinates> vertices;
   std::vector<s21::SurfaceNumbers> surfaces;
@@ -79,4 +79,4 @@ private:
   void loadSettings();
   void saveSettings();
 };
-#endif // SRC_VIEW_MAINWINDOW_H
+#endif  // SRC_VIEW_MAINWINDOW_H

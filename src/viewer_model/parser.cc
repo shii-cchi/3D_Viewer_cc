@@ -4,18 +4,18 @@ namespace s21 {
 
 double &VertixCoordinates::operator[](size_t index) {
   switch (index) {
-  case 0:
-    return _x;
-    break;
-  case 1:
-    return _y;
-    break;
-  case 2:
-    return _z;
-    break;
-  default:
-    throw std::range_error("Index must be less than 3!\n");
-    break;
+    case 0:
+      return _x;
+      break;
+    case 1:
+      return _y;
+      break;
+    case 2:
+      return _z;
+      break;
+    default:
+      throw std::range_error("Index must be less than 3!\n");
+      break;
   }
   return _z;
 }
@@ -31,21 +31,21 @@ void VertixCoordinates::PushBack(double val) {
   };
   _size++;
   switch (_size) {
-  case 1:
-    max_min_coord(_max_coord_x, _min_coord_x, val);
-    _x = val;
-    break;
-  case 2:
-    max_min_coord(_max_coord_y, _min_coord_y, val);
-    _y = val;
-    break;
-  case 3:
-    max_min_coord(_max_coord_z, _min_coord_z, val);
-    _z = val;
-    break;
-  default:
-    throw std::range_error("Vertex overflow!\n");
-    break;
+    case 1:
+      max_min_coord(_max_coord_x, _min_coord_x, val);
+      _x = val;
+      break;
+    case 2:
+      max_min_coord(_max_coord_y, _min_coord_y, val);
+      _y = val;
+      break;
+    case 3:
+      max_min_coord(_max_coord_z, _min_coord_z, val);
+      _z = val;
+      break;
+    default:
+      throw std::range_error("Vertex overflow!\n");
+      break;
   }
   max_min_coord_first(_max_coord_x, _min_coord_x, _x);
   max_min_coord_first(_max_coord_y, _min_coord_y, _y);
@@ -89,8 +89,7 @@ Parser::ParseFile(std::ifstream &file) {
         buffer.push_back(line[pos]);
         pos++;
       }
-      if (!(buffer.empty()))
-        push_data(buffer, data_file);
+      if (!(buffer.empty())) push_data(buffer, data_file);
     }
     pos = 0;
   };
@@ -99,16 +98,16 @@ Parser::ParseFile(std::ifstream &file) {
     std::string type_coord(std::string(line.begin(), line.begin() + 2));
     if (type.count(type_coord)) {
       switch (type[type_coord]) {
-      case 0:
-        data_file = creators[1]->Create();
-        parse_line(data_file);
-        data.PushBack(dynamic_cast<VertixCoordinates *>(data_file));
-        break;
-      case 1:
-        data_file = creators[0]->Create();
-        parse_line(data_file);
-        data.PushBack(dynamic_cast<SurfaceNumbers *>(data_file));
-        break;
+        case 0:
+          data_file = creators[1]->Create();
+          parse_line(data_file);
+          data.PushBack(dynamic_cast<VertixCoordinates *>(data_file));
+          break;
+        case 1:
+          data_file = creators[0]->Create();
+          parse_line(data_file);
+          data.PushBack(dynamic_cast<SurfaceNumbers *>(data_file));
+          break;
       }
       delete data_file;
     }
@@ -116,4 +115,4 @@ Parser::ParseFile(std::ifstream &file) {
   return data.GetData();
 }
 
-} // namespace s21
+}  // namespace s21

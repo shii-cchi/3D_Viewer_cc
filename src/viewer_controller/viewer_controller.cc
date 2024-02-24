@@ -61,4 +61,4 @@ void ViewerController::ScaleForward(double val) {
   delete _transform;
 }
 
-} // namespace s21
+}  // namespace s21
