@@ -101,7 +101,8 @@ void MainWindow::loadSettings() {
       QColor(background_red, background_green, background_blue);
 
   emit colorChanged(ColorSettings::kEdgesColor, colorSettings.edges_color);
-  emit colorChanged(ColorSettings::kVerticesColor, colorSettings.vertices_color);
+  emit colorChanged(ColorSettings::kVerticesColor,
+                    colorSettings.vertices_color);
   emit colorChanged(ColorSettings::kBackgroundColor,
                     colorSettings.background_color);
 }

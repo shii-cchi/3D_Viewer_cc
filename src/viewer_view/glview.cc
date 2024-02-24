@@ -6,7 +6,8 @@ GlView::GlView(QWidget *parent)
       renderingSettings{0xFFFF, RenderingSettings::ProjectionType::kCentral,
                         1.0f, 1.0f, RenderingSettings::VerticesType::kDefault},
       colorSettings{
-          ColorSettings::kEdgesColor, {0, 0, 0}, {255, 0, 0}, {255, 255, 255}} {}
+          ColorSettings::kEdgesColor, {0, 0, 0}, {255, 0, 0}, {255, 255, 255}} {
+}
 
 void GlView::sendData(std::vector<s21::VertixCoordinates> vertices,
                       std::vector<s21::SurfaceNumbers> surfaces,
@@ -191,7 +192,8 @@ void GlView::updateVerticesType(int index) {
           RenderingSettings::VerticesType::kCircular;
       break;
     case 2:
-      renderingSettings.vertices_type = RenderingSettings::VerticesType::kSquare;
+      renderingSettings.vertices_type =
+          RenderingSettings::VerticesType::kSquare;
       break;
   }
 
