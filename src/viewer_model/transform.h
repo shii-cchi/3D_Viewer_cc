@@ -1,5 +1,5 @@
-#ifndef CPP4_3DVIEWER_MODEL_TRANSFORM_H
-#define CPP4_3DVIEWER_MODEL_TRANSFORM_H
+#ifndef CPP4_3DVIEWER_VIEWER_MODEL_TRANSFORM_H
+#define CPP4_3DVIEWER_VIEWER_MODEL_TRANSFORM_H
 
 #include <algorithm>
 #include <array>
@@ -78,4 +78,4 @@ class Scaler {
 
 }  // namespace s21
 
-#endif  // CPP4_3DVIEWER_MODEL_TRANSFORM_H
+#endif  // CPP4_3DVIEWER_VIEWER_MODEL_TRANSFORM_H

@@ -1,5 +1,5 @@
-#ifndef SRC_VIEW_MAINWINDOW_H
-#define SRC_VIEW_MAINWINDOW_H
+#ifndef CPP4_3DVIEWER_VIEWER_VIEW_MAINWINDOW_H
+#define CPP4_3DVIEWER_VIEWER_VIEW_MAINWINDOW_H
 
 #include <QColorDialog>
 #include <QFileDialog>
@@ -79,4 +79,4 @@ class MainWindow : public QMainWindow {
   void loadSettings();
   void saveSettings();
 };
-#endif  // SRC_VIEW_MAINWINDOW_H
+#endif  // CPP4_3DVIEWER_VIEWER_VIEW_MAINWINDOW_H

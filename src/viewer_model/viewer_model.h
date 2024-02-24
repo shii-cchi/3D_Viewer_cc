@@ -1,5 +1,5 @@
-#ifndef CPP4_3DVIEWER_MODEL_MODEL_H
-#define CPP4_3DVIEWER_MODEL_MODEL_H
+#ifndef CPP4_3DVIEWER_VIEWER_MODEL_MODEL_H
+#define CPP4_3DVIEWER_VIEWER_MODEL_MODEL_H
 
 #include <stdexcept>
 #include <string>
@@ -59,4 +59,4 @@ class ViewerModel final {
 
 }  // namespace s21
 
-#endif  // CPP4_3DVIEWER_MODEL_MODEL_H
+#endif  // CPP4_3DVIEWER_VIEWER_MODEL_MODEL_H

@@ -1,5 +1,5 @@
-#ifndef SRC_VIEW_COLORSETTINGS_H
-#define SRC_VIEW_COLORSETTINGS_H
+#ifndef CPP4_3DVIEWER_VIEWER_VIEW_COLORSETTINGS_H
+#define CPP4_3DVIEWER_VIEWER_VIEW_COLORSETTINGS_H
 
 #include <QColor>
 
@@ -12,4 +12,4 @@ struct ColorSettings {
   QColor background_color;
 };
 
-#endif  // SRC_VIEW_COLORSETTINGS_H
+#endif  // CPP4_3DVIEWER_VIEWER_VIEW_COLORSETTINGS_H

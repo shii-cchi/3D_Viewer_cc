@@ -1,5 +1,5 @@
-#ifndef CPP4_3DVIEWER_MODEL_PARSER_H
-#define CPP4_3DVIEWER_MODEL_PARSER_H
+#ifndef CPP4_3DVIEWER_VIEWER_MODEL_PARSER_H
+#define CPP4_3DVIEWER_VIEWER_MODEL_PARSER_H
 
 #include <fstream>
 #include <map>
@@ -116,4 +116,4 @@ class Parser final {
 
 }  // namespace s21
 
-#endif  // CPP4_3DVIEWER_MODEL_PARSER_H
+#endif  // CPP4_3DVIEWER_VIEWER_MODEL_PARSER_H

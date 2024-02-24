@@ -1,5 +1,5 @@
-#ifndef SRC_VIEW_GLVIEW_H
-#define SRC_VIEW_GLVIEW_H
+#ifndef CPP4_3DVIEWER_VIEWER_VIEW_GLVIEW_H
+#define CPP4_3DVIEWER_VIEWER_VIEW_GLVIEW_H
 
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
@@ -58,4 +58,4 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   void drawObjects();
 };
 
-#endif  // SRC_VIEW_GLVIEW_H
+#endif  // CPP4_3DVIEWER_VIEWER_VIEW_GLVIEW_H
