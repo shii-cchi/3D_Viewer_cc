@@ -3,10 +3,10 @@
 GlView::GlView(QWidget *parent)
     : QOpenGLWidget(parent),
       data_initialized(false),
-      renderingSettings{0xFFFF, RenderingSettings::ProjectionType::Central,
-                        1.0f, 1.0f, RenderingSettings::VerticesType::Default},
+      renderingSettings{0xFFFF, RenderingSettings::ProjectionType::kCentral,
+                        1.0f, 1.0f, RenderingSettings::VerticesType::kDefault},
       colorSettings{
-          ColorSettings::EdgesColor, {0, 0, 0}, {255, 0, 0}, {255, 255, 255}} {}
+          ColorSettings::kEdgesColor, {0, 0, 0}, {255, 0, 0}, {255, 255, 255}} {}
 
 void GlView::sendData(std::vector<s21::VertixCoordinates> vertices,
                       std::vector<s21::SurfaceNumbers> surfaces,
@@ -47,10 +47,10 @@ void GlView::setupProjection() {
   glLoadIdentity();
 
   if (renderingSettings.projection_type ==
-      RenderingSettings::ProjectionType::Parallel) {
+      RenderingSettings::ProjectionType::kParallel) {
     glOrtho(-1, 1, -1, 1, -1, 99999);
   } else if (renderingSettings.projection_type ==
-             RenderingSettings::ProjectionType::Central) {
+             RenderingSettings::ProjectionType::kCentral) {
     glFrustum(-0.5, 0.5, -0.5, 0.5, 1, 99999);
     glTranslatef(0, 0, -2.8);
   }
@@ -81,9 +81,9 @@ void GlView::drawObjects() {
   glDisable(GL_LINE_STIPPLE);
 
   if (renderingSettings.vertices_type !=
-      RenderingSettings::VerticesType::Default) {
+      RenderingSettings::VerticesType::kDefault) {
     if (renderingSettings.vertices_type ==
-        RenderingSettings::VerticesType::Circular) {
+        RenderingSettings::VerticesType::kCircular) {
       glEnable(GL_POINT_SMOOTH);
     }
 
@@ -102,7 +102,7 @@ void GlView::drawObjects() {
     }
 
     if (renderingSettings.vertices_type ==
-        RenderingSettings::VerticesType::Circular) {
+        RenderingSettings::VerticesType::kCircular) {
       glDisable(GL_POINT_SMOOTH);
     }
   }
@@ -112,11 +112,11 @@ void GlView::updateProjectionType(int index) {
   switch (index) {
     case 0:
       renderingSettings.projection_type =
-          RenderingSettings::ProjectionType::Central;
+          RenderingSettings::ProjectionType::kCentral;
       break;
     case 1:
       renderingSettings.projection_type =
-          RenderingSettings::ProjectionType::Parallel;
+          RenderingSettings::ProjectionType::kParallel;
       break;
   }
 
@@ -184,14 +184,14 @@ void GlView::updateVerticesType(int index) {
   switch (index) {
     case 0:
       renderingSettings.vertices_type =
-          RenderingSettings::VerticesType::Default;
+          RenderingSettings::VerticesType::kDefault;
       break;
     case 1:
       renderingSettings.vertices_type =
-          RenderingSettings::VerticesType::Circular;
+          RenderingSettings::VerticesType::kCircular;
       break;
     case 2:
-      renderingSettings.vertices_type = RenderingSettings::VerticesType::Square;
+      renderingSettings.vertices_type = RenderingSettings::VerticesType::kSquare;
       break;
   }
 
@@ -201,13 +201,13 @@ void GlView::updateVerticesType(int index) {
 void GlView::onColorChanged(ColorSettings::CurrentParam param,
                             const QColor &color) {
   switch (param) {
-    case ColorSettings::EdgesColor:
+    case ColorSettings::kEdgesColor:
       colorSettings.edges_color = color;
       break;
-    case ColorSettings::VerticesColor:
+    case ColorSettings::kVerticesColor:
       colorSettings.vertices_color = color;
       break;
-    case ColorSettings::BackgroundColor:
+    case ColorSettings::kBackgroundColor:
       colorSettings.background_color = color;
       break;
   }

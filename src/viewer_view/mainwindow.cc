@@ -100,36 +100,36 @@ void MainWindow::loadSettings() {
   colorSettings.background_color =
       QColor(background_red, background_green, background_blue);
 
-  emit colorChanged(ColorSettings::EdgesColor, colorSettings.edges_color);
-  emit colorChanged(ColorSettings::VerticesColor, colorSettings.vertices_color);
-  emit colorChanged(ColorSettings::BackgroundColor,
+  emit colorChanged(ColorSettings::kEdgesColor, colorSettings.edges_color);
+  emit colorChanged(ColorSettings::kVerticesColor, colorSettings.vertices_color);
+  emit colorChanged(ColorSettings::kBackgroundColor,
                     colorSettings.background_color);
 }
 
 void MainWindow::openColorDialogEdges() {
-  colorSettings.current_param = ColorSettings::EdgesColor;
+  colorSettings.current_param = ColorSettings::kEdgesColor;
   colorDialog.show();
 }
 
 void MainWindow::openColorDialogVertices() {
-  colorSettings.current_param = ColorSettings::VerticesColor;
+  colorSettings.current_param = ColorSettings::kVerticesColor;
   colorDialog.show();
 }
 
 void MainWindow::openColorDialogBackground() {
-  colorSettings.current_param = ColorSettings::BackgroundColor;
+  colorSettings.current_param = ColorSettings::kBackgroundColor;
   colorDialog.show();
 }
 
 void MainWindow::colorSelected(const QColor &color) {
   switch (colorSettings.current_param) {
-    case ColorSettings::EdgesColor:
+    case ColorSettings::kEdgesColor:
       colorSettings.edges_color = color;
       break;
-    case ColorSettings::VerticesColor:
+    case ColorSettings::kVerticesColor:
       colorSettings.vertices_color = color;
       break;
-    case ColorSettings::BackgroundColor:
+    case ColorSettings::kBackgroundColor:
       colorSettings.background_color = color;
       break;
   }

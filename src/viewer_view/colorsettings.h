@@ -4,7 +4,7 @@
 #include <QColor>
 
 struct ColorSettings {
-  enum CurrentParam { EdgesColor, VerticesColor, BackgroundColor };
+  enum CurrentParam { kEdgesColor, kVerticesColor, kBackgroundColor };
 
   CurrentParam current_param;
   QColor edges_color;

@@ -38,16 +38,13 @@ class GlView : public QOpenGLWidget, protected QOpenGLFunctions {
   struct RenderingSettings {
     GLushort line_pattern;
 
-    enum ProjectionType {
-      Central,
-      Parallel,
-    };
+    enum ProjectionType { kCentral, kParallel };
     ProjectionType projection_type;
 
     float width_edge;
     float size_vertices;
 
-    enum VerticesType { Default, Circular, Square };
+    enum VerticesType { kDefault, kCircular, kSquare };
     VerticesType vertices_type;
   };
 
