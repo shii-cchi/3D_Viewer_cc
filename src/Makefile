@@ -45,7 +45,7 @@ dist:
 .PHONY: clean
 clean:
 	-rm -rf *.o *.a *.out *.gcda *.gcno *.css *.tar.gz *.html
-	-rm -rf tests 3D_Viewer
+	-rm -rf test 3D_Viewer
 	
 .PHONY: style
 style:
